@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="TestJDBC.loadUserPhone" project="pos-java-jdbc" tests="1" started="1" failures="0" errors="0" ignored="0">
+  <testcase name="loadUserPhone" classname="br.com.cauezito.test.TestJDBC" time="0.604"/>
+</testrun>

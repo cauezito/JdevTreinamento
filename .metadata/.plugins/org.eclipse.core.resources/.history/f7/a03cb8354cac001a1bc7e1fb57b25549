@@ -1,0 +1,25 @@
+package br.com.cauezito.jdbc;
+
+import java.sql.Connection;
+
+public class SingleConnection {
+	
+	private static String db = "";
+	private static String password = "";
+	private static String user = "";
+	private static Connection connection = null;
+
+	
+	static {
+		connect();
+	}
+	
+	public SingleConnection() {
+		connect();
+	}
+	
+	private static void connect() {
+		
+	}
+
+}

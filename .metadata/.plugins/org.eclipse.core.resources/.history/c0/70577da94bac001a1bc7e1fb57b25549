@@ -1,0 +1,5 @@
+package br.com.cauezito.jdbc;
+
+public class SingleConnection {
+
+}

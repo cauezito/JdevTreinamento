@@ -1,0 +1,10 @@
+package br.com.cauezito.test;
+
+import br.com.cauezito.jdbc.SingleConnection;
+
+public class TestJDBC {
+	
+	public void initDb() {
+		SingleConnection.getConnection();
+	}
+}

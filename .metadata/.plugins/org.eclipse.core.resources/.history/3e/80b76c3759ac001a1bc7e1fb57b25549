@@ -1,0 +1,45 @@
+package br.com.cauezito.test;
+
+import org.junit.Test;
+
+import br.com.cauezito.dao.UserDAO;
+import br.com.cauezito.jdbc.SingleConnection;
+import br.com.cauezito.model.User;
+
+public class TestJDBC {
+	UserDAO dao = null;
+	User user = null;
+	
+	@Test
+	public void save() {
+		dao = new UserDAO();
+		user = new User();
+		
+		user.setName("Cauê");
+		user.setEmail("santos@santos");
+		dao.save(user);
+	}
+	
+	@Test
+	public void findAll() {
+		dao = new UserDAO();
+		System.out.println(dao.findAll());
+	}
+	
+	@Test
+	public void findById() {
+		dao = new UserDAO();
+		user = dao.findById(10L);
+		System.out.println(user);
+	}
+	
+	@Test
+	public void update() {
+		dao = new UserDAO();
+		user = new User();
+		user = dao.findById(11L);
+		System.out.println("test: " + user.getId());
+		user.setName("Mudei o nome!!!");
+		dao.update(user);
+	}
+}

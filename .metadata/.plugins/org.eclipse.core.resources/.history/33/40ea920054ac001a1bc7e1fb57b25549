@@ -1,0 +1,77 @@
+package br.com.cauezito.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import br.com.cauezito.jdbc.SingleConnection;
+import br.com.cauezito.model.User;
+
+public class UserDAO {
+	private Connection connection;
+	
+	//injeta a instância da conexão
+	public UserDAO() {
+		connection = SingleConnection.getConnection();
+	}
+	
+	public void save(User user) {
+		
+		try {
+			String sql = "insert into users (name, email) values  (?, ?)";
+			
+			//Possibilita que o insert aconteça.
+			PreparedStatement ps = connection.prepareStatement(sql);
+			ps.setString(1, user.getName());
+			ps.setString(2, user.getEmail());
+			ps.execute();
+			//salva no banco
+			connection.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public List<User> findAll(){
+		List<User> list = new ArrayList<User>();
+		String sql = "select * from users";
+		try {
+			PreparedStatement ps = connection.prepareStatement(sql);
+			ResultSet result = ps.executeQuery();
+			
+			while(result.next()) {
+				User user = new User();
+				user.setName(result.getString("name"));
+				user.setEmail(result.getString("email"));
+				list.add(user);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+		
+		public User findById(Long id){
+			User user;
+			String sql = "select * from users where id =" + id;
+			try {
+				PreparedStatement ps = connection.prepareStatement(sql);
+				ResultSet result = ps.executeQuery();
+				
+				while(result.next()) {
+					user = new User();
+					user.setName(result.getString("name"));
+					user.setEmail(result.getString("email"));
+					list.add(user);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			
+			return user;
+	}
+}
