@@ -14,8 +14,8 @@
 	<jsp:setProperty property="*" name="calculator"/>
 	
 	<!--  Recuperando os atributos -->
-	<jsp:getProperty property="name" name="calculator"/>
-	<jsp:getProperty property="gender" name="calculator"/>
+	Name: ${param.name}
+	Gender: ${param.gender}
 	
 </body>
 </html>
