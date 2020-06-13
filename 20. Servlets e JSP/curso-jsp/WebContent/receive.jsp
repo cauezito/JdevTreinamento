@@ -4,12 +4,9 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Curso JSP</title>
+<title>Receber parâmetro</title>
 </head>
 <body>
-	<form action="receive.jsp" method="post">
-		<input type="text" id="name" name="name">
-		<button type="Submit">Save!</button>
-	</form>
+	<% out.print(request.getParameter("name")); %>
 </body>
 </html>
