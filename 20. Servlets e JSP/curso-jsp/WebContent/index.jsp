@@ -7,12 +7,9 @@
 <title>Curso JSP</title>
 </head>
 <body>
-	<form action="receive.jsp" method="get">
-		<input type="text" id="name" name="name">
-		<button type="Submit">Save!</button>
-	</form>
-	
-	<%= application.getInitParameter("State") %>
-	<% session.setAttribute("course", "Java WEB"); %>
+	<h1>Index</h1>
+	<jsp:forward page="receive.jsp">
+		<jsp:param value="Teste do forward" name="test"/>	
+	</jsp:forward>
 </body>
 </html>

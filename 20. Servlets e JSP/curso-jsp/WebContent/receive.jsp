@@ -7,9 +7,9 @@
 <title>Receber parâmetro</title>
 </head>
 <body>
-	<%= request.getParameter("name") %>
-	<%! int cont = 2; %>
-	<%= cont %>
-	<%= session.getAttribute("course") %>
+
+	<h1>Receive</h1>
+	<%= request.getParameter("test") %>
+	
 </body>
 </html>
