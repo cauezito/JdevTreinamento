@@ -7,7 +7,7 @@
 <title>Curso JSP</title>
 </head>
 <body>
-	<form action="receive.jsp" method="post">
+	<form action="receive.jsp" method="get">
 		<input type="text" id="name" name="name">
 		<button type="Submit">Save!</button>
 	</form>

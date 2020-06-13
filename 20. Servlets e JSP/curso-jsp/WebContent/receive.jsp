@@ -7,6 +7,6 @@
 <title>Receber parâmetro</title>
 </head>
 <body>
-	<% out.print(request.getParameter("name")); %>
+	<%= request.getParameter("name") %>
 </body>
 </html>
