@@ -11,5 +11,8 @@
 		<input type="text" id="name" name="name">
 		<button type="Submit">Save!</button>
 	</form>
+	
+	<%= application.getInitParameter("State") %>
+	<% session.setAttribute("course", "Java WEB"); %>
 </body>
 </html>

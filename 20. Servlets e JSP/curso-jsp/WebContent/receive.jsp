@@ -8,5 +8,8 @@
 </head>
 <body>
 	<%= request.getParameter("name") %>
+	<%! int cont = 2; %>
+	<%= cont %>
+	<%= session.getAttribute("course") %>
 </body>
 </html>

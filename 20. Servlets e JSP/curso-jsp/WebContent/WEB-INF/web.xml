@@ -4,4 +4,9 @@
   <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>
+  
+  <context-param>
+  	<param-name>State</param-name>
+  	<param-value>São Paulo</param-value>
+  </context-param>
 </web-app>
