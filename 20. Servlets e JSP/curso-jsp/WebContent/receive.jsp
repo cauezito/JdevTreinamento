@@ -1,3 +1,4 @@
+<jsp:useBean id="calculator" class="br.com.cauezito.beans.TestBean" type="br.com.cauezito.beans.TestBean" scope="page"/>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -9,7 +10,12 @@
 <body>
 
 	<h1>Receive</h1>
-	<%= request.getParameter("test") %>
+	<!-- Setando todas os atributos que vieram do formulário e que pertencem ao Bean "TestBean" -->
+	<jsp:setProperty property="*" name="calculator"/>
+	
+	<!--  Recuperando os atributos -->
+	<jsp:getProperty property="name" name="calculator"/>
+	<jsp:getProperty property="gender" name="calculator"/>
 	
 </body>
 </html>

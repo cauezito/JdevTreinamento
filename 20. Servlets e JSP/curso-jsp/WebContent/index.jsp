@@ -9,6 +9,12 @@
 </head>
 <body>
 	<h1>Index</h1>
-	<%= "Utilizando o método da classe TestBean: " + calculator.calc(10) %>
+	
+	
+	<form action="receive.jsp" method="post">
+		<input type="text" id="name" name="name">
+		<input type="text" id="gender" name="gender">
+		<button type="submit">Finish!</button>
+	</form>
 </body>
 </html>
