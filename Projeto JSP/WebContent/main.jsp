@@ -39,6 +39,7 @@
 		</tr>	
 	</table>
 	<button type="submit">Salvar</button>
+	<a href="manageUser?action=listAll"><button>Cancelar</button></a>
 </form>
 
 	<table>

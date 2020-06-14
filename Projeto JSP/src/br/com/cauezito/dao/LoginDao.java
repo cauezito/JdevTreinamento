@@ -21,8 +21,7 @@ public class LoginDao {
 		ResultSet rs = ps.executeQuery();
 		if(rs.next()) {
 			return true;
-		}
-		
+		}		
 		return false;
 	}
 }

@@ -55,9 +55,9 @@ public class User extends HttpServlet {
 		user.setPassword(password);
 		user.setName(name);
 		
-		if(id == null || id.isEmpty()) {
+		if(id == null || id.isEmpty() && dao.isUserExists(login)) {
 			dao.save(user);
-		} else {
+		} else if(id != null && !id.isEmpty()){
 			dao.update(user);
 		}
 		

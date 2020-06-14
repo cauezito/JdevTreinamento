@@ -127,8 +127,21 @@ public class UserDao {
 			} catch (SQLException e1) {
 				e1.printStackTrace();
 			}
+		}		
+	}
+	
+	public boolean isUserExists(String login) {
+		try {
+			String sql = "select count(1) as qtd from users where login = '" + login + "'";
+			PreparedStatement ps = connection.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				return rs.getInt("qtd") <= 0 /*return true*/;
+			}
+			
+		}catch (SQLException e) {
+			e.printStackTrace();
 		}
-		
-		
+		return false;
 	}
 }
