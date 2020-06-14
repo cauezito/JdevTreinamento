@@ -36,7 +36,12 @@ public class User extends HttpServlet {
 			RequestDispatcher rd = request.getRequestDispatcher("/main.jsp");
 			request.setAttribute("user", user);
 			rd.forward(request, response);
+		} else if(action.equals("listAll")) {
+			RequestDispatcher rd = request.getRequestDispatcher("/main.jsp");
+			request.setAttribute("users", dao.findAll());
+			rd.forward(request, response);
 		}
+		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

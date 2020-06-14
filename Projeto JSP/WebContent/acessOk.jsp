@@ -8,6 +8,6 @@
 </head>
 <body>
 	<h1>Seja bem vindo!</h1>
-	<a href="main.jsp">Cadastrar usuário</a>
+	<a href="manageUser?action=listAll">Cadastrar usuário</a>
 </body>
 </html>
