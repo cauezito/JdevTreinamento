@@ -1,4 +1,4 @@
-<jsp:useBean id="user" class="br.com.cauezito.beans.User" type="br.com.cauezito.beans.User" scope="page"/>
+<jsp:useBean id="user" class="br.com.cauezito.beans.UserBean" type="br.com.cauezito.beans.UserBean" scope="page"/>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>

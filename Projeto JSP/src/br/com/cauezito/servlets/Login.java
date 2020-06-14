@@ -10,13 +10,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import br.com.cauezito.beans.User;
-import br.com.cauezito.dao.UserDao;
+import br.com.cauezito.beans.UserBean;
+import br.com.cauezito.dao.LoginDao;
  
 @WebServlet("/Login")
 public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private UserDao dao = new UserDao();
+	private LoginDao dao = new LoginDao();
        
 
     public Login() {
@@ -30,7 +30,7 @@ public class Login extends HttpServlet {
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		User user = new User();
+		UserBean user = new UserBean();
 		String login = request.getParameter("login");
 		String password = request.getParameter("password");
 		

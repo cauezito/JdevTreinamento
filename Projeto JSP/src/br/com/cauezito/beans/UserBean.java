@@ -1,17 +1,8 @@
 package br.com.cauezito.beans;
 
-public class User {
+public class UserBean {
 	private String login;
 	private String password;
-	
-	public boolean validateLogin(String login, String password) {
-		if(login.equals("admin") && password.equals("admin")) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-	
 	
 	public String getLogin() {
 		return login;

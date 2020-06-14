@@ -8,5 +8,6 @@
 </head>
 <body>
 	<h1>Seja bem vindo!</h1>
+	<a href="userRegistration.jsp">Cadastro de usuários</a>
 </body>
 </html>
