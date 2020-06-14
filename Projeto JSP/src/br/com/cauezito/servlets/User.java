@@ -28,13 +28,12 @@ public class User extends HttpServlet {
 		
 		if(action.equals("delete")) {
 			dao.delete(Long.parseLong(id));
-			RequestDispatcher rd = request.getRequestDispatcher("/userRegistration.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/main.jsp");
 			request.setAttribute("users", dao.findAll());
 			rd.forward(request, response);
 		} else if(action.equals("update")) {
-			UserBean user = dao.update(Long.parseLong(id));
-			
-			RequestDispatcher rd = request.getRequestDispatcher("/userRegistration.jsp");
+			UserBean user = dao.update(Long.parseLong(id));			
+			RequestDispatcher rd = request.getRequestDispatcher("/main.jsp");
 			request.setAttribute("user", user);
 			rd.forward(request, response);
 		}
@@ -44,10 +43,12 @@ public class User extends HttpServlet {
 		String id = request.getParameter("id");
 		String login = request.getParameter("login");
 		String password = request.getParameter("password");
+		String name = request.getParameter("name");
 		UserBean user = new UserBean();
 		user.setId(!id.isEmpty() ? Long.parseLong(id) : 0);
 		user.setLogin(login);
 		user.setPassword(password);
+		user.setName(name);
 		
 		if(id == null || id.isEmpty()) {
 			dao.save(user);
@@ -56,7 +57,7 @@ public class User extends HttpServlet {
 		}
 		
 		
-		RequestDispatcher rd = request.getRequestDispatcher("/userRegistration.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/main.jsp");
 		request.setAttribute("users", dao.findAll());
 		rd.forward(request, response);
 		

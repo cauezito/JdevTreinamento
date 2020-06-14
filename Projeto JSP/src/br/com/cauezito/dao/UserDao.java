@@ -24,10 +24,11 @@ public class UserDao {
 	
 	public void save(UserBean user) {
 		try {
-			String sql = "insert into users (login, password) values (?, ?)";
+			String sql = "insert into users (login, password, name) values (?, ?, ?)";
 			PreparedStatement st = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			st.setString(1, user.getLogin());
 			st.setString(2,  user.getPassword());
+			st.setString(3,  user.getName());
 			st.execute();
 			connection.commit();
 			ResultSet rs = st.getGeneratedKeys();
@@ -73,6 +74,7 @@ public class UserDao {
 				user.setId(rs.getLong("id"));
 				user.setLogin(rs.getString("login"));
 				user.setPassword(rs.getString("password"));
+				user.setName(rs.getString("name"));
 				list.add(user);
 			}
 
@@ -93,6 +95,7 @@ public class UserDao {
 				user.setId(rs.getLong("id"));
 				user.setLogin(rs.getString("login"));
 				user.setPassword(rs.getString("password"));
+				user.setName(rs.getString("name"));
 				return user;
 			}
 		} catch (SQLException e) {
@@ -109,11 +112,12 @@ public class UserDao {
 
 	public void update(UserBean user) {		
 		try {
-			String sql = "update users set login = ?, password = ? where id = " + user.getId();
+			String sql = "update users set login = ?, password = ?, name = ? where id = " + user.getId();
 			PreparedStatement ps;
 			ps = connection.prepareStatement(sql);
 			ps.setString(1, user.getLogin());
 			ps.setString(2, user.getPassword());
+			ps.setString(3, user.getName());
 			ps.executeUpdate();
 			connection.commit();
 		} catch (SQLException e) {
@@ -121,7 +125,6 @@ public class UserDao {
 			try {
 				connection.rollback();
 			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 		}

@@ -20,6 +20,12 @@
 			</td>
 		</tr>	
 		<tr>
+			<td>Nome:</td>
+			<td>
+				<input type="text" id="name" name="name" value="${user.name}">
+			</td>
+		</tr>	
+		<tr>
 			<td>Login:</td>
 			<td>
 				<input type="text" id="login" name="login" value="${user.login}">
@@ -40,6 +46,9 @@
 			<tr> 
 				<td>
 					<c:out value="${user.id}"></c:out>
+				</td>
+				<td>
+					<c:out value="${user.name}"></c:out>
 				</td>
 				<td>
 					<c:out value="${user.login}"></c:out>

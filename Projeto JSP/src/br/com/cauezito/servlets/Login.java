@@ -12,11 +12,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import br.com.cauezito.beans.UserBean;
 import br.com.cauezito.dao.LoginDao;
+import br.com.cauezito.dao.UserDao;
  
 @WebServlet("/Login")
 public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private LoginDao dao = new LoginDao();
+	private LoginDao loginDao = new LoginDao();
        
 
     public Login() {
@@ -35,9 +36,10 @@ public class Login extends HttpServlet {
 		String password = request.getParameter("password");
 		
 		try {
-			if(dao.validateLogin(login, password)) {
+			if(loginDao.validateLogin(login, password)) {
 				RequestDispatcher dispatcher = request.getRequestDispatcher("acessOk.jsp");
 				dispatcher.forward(request, response);
+				
 			} else {
 				RequestDispatcher dispatcher = request.getRequestDispatcher("acessDenied.jsp");
 				dispatcher.forward(request, response);
