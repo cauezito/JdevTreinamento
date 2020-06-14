@@ -32,8 +32,9 @@ public class User extends HttpServlet {
 			request.setAttribute("users", dao.findAll());
 			rd.forward(request, response);
 		} else if(action.equals("update")) {
-			UserBean user = dao.update(Long.parseLong(id));			
+			UserBean user = dao.findById(Long.parseLong(id));			
 			RequestDispatcher rd = request.getRequestDispatcher("/main.jsp");
+			request.setAttribute("update", true);
 			request.setAttribute("user", user);
 			rd.forward(request, response);
 		} else if(action.equals("listAll")) {
@@ -49,23 +50,37 @@ public class User extends HttpServlet {
 		String login = request.getParameter("login");
 		String password = request.getParameter("password");
 		String name = request.getParameter("name");
+		String lastName = request.getParameter("lastName");
+		String gender = request.getParameter("gender");
+		String phone = request.getParameter("phone");
+		
 		UserBean user = new UserBean();
 		user.setId(!id.isEmpty() ? Long.parseLong(id) : 0);
 		user.setLogin(login);
 		user.setPassword(password);
-		user.setName(name);
-		
-		if(id == null || id.isEmpty() && dao.isUserExists(login)) {
-			dao.save(user);
-		} else if(id != null && !id.isEmpty()){
-			dao.update(user);
+		user.setName(name);		
+		user.setLastName(lastName);
+		user.setGender(gender);
+		if(this.checkAtribute(phone)) {	
+			user.setPhone(phone);
 		}
 		
+		if(this.checkAtribute(id) && !dao.validateNewUser(login)) {
+			request.setAttribute("msg", "Esse usuário já existe!");
+		} else if(this.checkAtribute(id) && dao.validateNewUser(login)) {
+			dao.save(user);
+		} else if(!this.checkAtribute(id)){
+			dao.update(user);
+		}		
 		
-		RequestDispatcher rd = request.getRequestDispatcher("/main.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/main.jsp?action=listAll");
 		request.setAttribute("users", dao.findAll());
 		rd.forward(request, response);
 		
+	}	
+			
+	 private boolean checkAtribute(String atribute) {
+		return atribute == null || atribute.isEmpty();
 	}
 
 }

@@ -7,7 +7,11 @@
 <title>Login</title>
 </head>
 <body>
-	<h1>Seja bem vindo!</h1>
-	<a href="manageUser?action=listAll">Cadastrar usuário</a>
+	
+	<div class="container-fluid">
+	<a href="manageUser?action=listAll">
+		<img alt="Usuários" title="Gerenciar usuários" src="vendor/img/team.png">
+	</a>
+	</div>
 </body>
 </html>

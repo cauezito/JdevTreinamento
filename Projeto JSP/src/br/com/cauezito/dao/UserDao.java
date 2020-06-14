@@ -24,11 +24,14 @@ public class UserDao {
 	
 	public void save(UserBean user) {
 		try {
-			String sql = "insert into users (login, password, name) values (?, ?, ?)";
+			String sql = "insert into users (login, password, name, last_name, gender, phone) values (?, ?, ?, ?, ?, ?)";
 			PreparedStatement st = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			st.setString(1, user.getLogin());
 			st.setString(2,  user.getPassword());
 			st.setString(3,  user.getName());
+			st.setString(4, user.getLastName());
+			st.setString(5, user.getGender());
+			st.setString(6, user.getPhone());
 			st.execute();
 			connection.commit();
 			ResultSet rs = st.getGeneratedKeys();
@@ -66,8 +69,7 @@ public class UserDao {
 		
 		try {
 			String sql = "Select * from users";
-			PreparedStatement ps;
-			ps = connection.prepareStatement(sql);
+			PreparedStatement ps = connection.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
 				UserBean user = new UserBean();
@@ -75,6 +77,9 @@ public class UserDao {
 				user.setLogin(rs.getString("login"));
 				user.setPassword(rs.getString("password"));
 				user.setName(rs.getString("name"));
+				user.setLastName(rs.getString("last_name"));
+				user.setGender(rs.getString("gender"));
+				user.setPhone(rs.getString("phone"));
 				list.add(user);
 			}
 
@@ -85,7 +90,7 @@ public class UserDao {
 		return list;
 	}
 
-	public UserBean update(Long id) {
+	public UserBean findById(Long id) {
 		try {
 			String sql = "Select * from users where id = " + id;
 			PreparedStatement ps = connection.prepareStatement(sql);
@@ -96,6 +101,9 @@ public class UserDao {
 				user.setLogin(rs.getString("login"));
 				user.setPassword(rs.getString("password"));
 				user.setName(rs.getString("name"));
+				user.setLastName(rs.getString("last_name"));
+				user.setGender(rs.getString("gender"));
+				user.setPhone(rs.getString("phone"));
 				return user;
 			}
 		} catch (SQLException e) {
@@ -112,12 +120,16 @@ public class UserDao {
 
 	public void update(UserBean user) {		
 		try {
-			String sql = "update users set login = ?, password = ?, name = ? where id = " + user.getId();
+			String sql = "update users set login = ?, password = ?, name = ?, last_name = ?, gender = ?, phone = ? "
+					+ " where id = " + user.getId();
 			PreparedStatement ps;
 			ps = connection.prepareStatement(sql);
 			ps.setString(1, user.getLogin());
 			ps.setString(2, user.getPassword());
 			ps.setString(3, user.getName());
+			ps.setString(4, user.getLastName());
+			ps.setString(5, user.getGender());
+			ps.setString(6, user.getPhone());
 			ps.executeUpdate();
 			connection.commit();
 		} catch (SQLException e) {
@@ -130,7 +142,7 @@ public class UserDao {
 		}		
 	}
 	
-	public boolean isUserExists(String login) {
+	public boolean validateNewUser(String login) {
 		try {
 			String sql = "select count(1) as qtd from users where login = '" + login + "'";
 			PreparedStatement ps = connection.prepareStatement(sql);
