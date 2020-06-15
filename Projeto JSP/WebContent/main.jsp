@@ -5,30 +5,46 @@
     <html>
       <head>
         <meta charset="ISO-8859-1">
-        <title>Cadastro de usuário
-        </title>
-        <!-- Icons font CSS-->
+        <title>Cadastro de usuário </title>
+
         <link href="vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
         <link href="vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
-        <!-- Font special for pages-->
         <link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-        <!-- Vendor CSS-->
         <link href="vendor/select2/select2.min.css" rel="stylesheet" media="all">
-        <!-- Main CSS-->
         <link href="Main/css/mainNewUser.css" rel="stylesheet" media="all">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
       </head>
       <body>
-      	<div class="container-fluid">      	
-	        <h4>${msg}
-	        </h4>
-	        
-	        
+      	<div class="container-fluid">  
+      	 
 	        <!-- Button trigger modal -->
 	        <button type="button" class="btn btn-light mt-4 mb-3" data-toggle="modal" 
 	        data-target="#modalUser">
 	          Novo usuário
 	        </button>
+	        <!-- Alert error -->
+	        <c:if test="${msgError != null}">
+	        	<div class="alert alert-danger alert-dismissible fade show" role="alert">
+	  				${msgError}
+	  				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+	    				<span aria-hidden="true">&times;</span>
+	  				</button>
+				</div>   
+	        </c:if>
+	        <!-- /Alert error -->
+	        
+	        <!-- Alert success -->
+	        <c:if test="${msgSuccess != null}">
+	        	<div class="alert alert-success alert-dismissible fade show" role="alert">
+	  				${msgSuccess}
+	  				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+	    				<span aria-hidden="true">&times;</span>
+	  				</button>
+				</div>   
+	        </c:if>
+	        <!-- /Alert success -->
+	        
+	        <!-- Modal for new/edit user -->
 	        <div class="modal fade" id="modalUser" tabindex="-1" role="dialog" 
 	             aria-labelledby="exampleModalLabel" aria-hidden="true">
 	          <div class="modal-dialog modal-lg" role="document">
@@ -48,7 +64,6 @@
 	                      <div class="row row-space">
 	                        <div class="col-3">
 	                          <div class="input-group">
-	                            </label>
 	                            <input class="input--style-4 form-control" readonly type="text" name="id"  
 	                            value="${user.id}" placeholder="ID">
 	                          </div>                            
@@ -78,17 +93,17 @@
 	                            </label>
 	                            <div class="p-t-10">
 	                              <label class="radio-container m-r-45">Masculino
-	                                <input type="radio" checked="checked" name="gender" value="M">
+	                                <input type="radio" checked="checked" name="gender" value="Masculino">
 	                                <span class="checkmark">
 	                                </span>
 	                              </label>
 	                              <label class="radio-container">Feminino
-	                                <input type="radio" name="gender" value="F">
+	                                <input type="radio" name="gender" value="Feminino">
 	                                <span class="checkmark">
 	                                </span>
 	                              </label>
 	                              <label class="radio-container">Outro
-	                                <input type="radio" name="gender" value="O">
+	                                <input type="radio" name="gender" value="Outro">
 	                                <span class="checkmark">
 	                                </span>
 	                              </label>
@@ -134,6 +149,9 @@
 	            </div>
 	          </div>
 	        </div>
+	        <!-- /Modal for new/edit user -->
+	        
+	        <!-- Table users -->
 	        <table class="table table-striped table-responsive-md">
 	          <thead class="thead-dark">
 	            <tr>
@@ -188,9 +206,9 @@
 	            </c:forEach>
 	          </tbody>
 	        </table>
+	         <!-- /Table users -->
 	       </div>
-        <!-- Jquery JS-->
-        <!-- Vendor JS-->
+	       
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
         </script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
@@ -203,11 +221,9 @@
         </script>
         <!-- Main JS-->
         <c:if test="${update}">  
-        <script>
-        $('#modalUser').modal('show')
-        alert('oi')
-        </script>	
-	    	
+	        <script>
+	        $('#modalUser').modal('show')
+	        </script>	    	
 	    </c:if>
       </body>
     </html>

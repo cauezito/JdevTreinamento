@@ -1,6 +1,8 @@
 package br.com.cauezito.servlets;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -16,7 +18,7 @@ import br.com.cauezito.dao.UserDao;
 public class User extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private UserDao dao = new UserDao();
-  
+    
     public User() {
         super();
       
@@ -28,6 +30,7 @@ public class User extends HttpServlet {
 		
 		if(action.equals("delete")) {
 			dao.delete(Long.parseLong(id));
+			request.setAttribute("msgSuccess", "Usuário deletado com sucesso!");
 			RequestDispatcher rd = request.getRequestDispatcher("/main.jsp");
 			request.setAttribute("users", dao.findAll());
 			rd.forward(request, response);
@@ -47,12 +50,12 @@ public class User extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String id = request.getParameter("id");
-		String login = request.getParameter("login");
-		String password = request.getParameter("password");
+		String login = request.getParameter("login").trim();
+		String password = request.getParameter("password").trim();
 		String name = request.getParameter("name");
 		String lastName = request.getParameter("lastName");
 		String gender = request.getParameter("gender");
-		String phone = request.getParameter("phone");
+		String phone = request.getParameter("phone").trim();
 		
 		UserBean user = new UserBean();
 		user.setId(!id.isEmpty() ? Long.parseLong(id) : 0);
@@ -61,22 +64,28 @@ public class User extends HttpServlet {
 		user.setName(name);		
 		user.setLastName(lastName);
 		user.setGender(gender);
+		
 		if(this.checkAtribute(phone)) {	
 			user.setPhone(phone);
 		}
 		
 		if(this.checkAtribute(id) && !dao.validateNewUser(login)) {
-			request.setAttribute("msg", "Esse usuário já existe!");
+			request.setAttribute("msgError", "Desculpe, esse login já está sendo utilizado. Tente outro!");
 		} else if(this.checkAtribute(id) && dao.validateNewUser(login)) {
 			dao.save(user);
+			request.setAttribute("msgSuccess", "Usuário cadastrado com sucesso.");
 		} else if(!this.checkAtribute(id)){
-			dao.update(user);
+			if(!dao.validateUpdate(login, Long.parseLong(id))) {
+				request.setAttribute("msgError", "Desculpe, esse login já está sendo utilizado. Tente outro!");
+			} else {
+				dao.update(user);
+				request.setAttribute("msgSuccess", "As informações do usuário foram atualizadas com sucesso.");
+			}
 		}		
 		
 		RequestDispatcher rd = request.getRequestDispatcher("/main.jsp?action=listAll");
 		request.setAttribute("users", dao.findAll());
-		rd.forward(request, response);
-		
+		rd.forward(request, response);		
 	}	
 			
 	 private boolean checkAtribute(String atribute) {
