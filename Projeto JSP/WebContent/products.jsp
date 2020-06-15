@@ -14,7 +14,7 @@
 	href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i"
 	rel="stylesheet">
 <link href="vendor/select2/select2.min.css" rel="stylesheet" media="all">
-<link href="Main/css/mainNewUser.css" rel="stylesheet" media="all">
+<link href="Product/css/product.css" rel="stylesheet" media="all">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
 	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
@@ -54,7 +54,7 @@
 					<div class="modal-body">
 						<div class="page-wrapper p-t-10 p-b-20 font-poppins">
 							<div class="wrapper wrapper--w680">
-								<form method="POST" action="manageProduct">
+								<form method="POST" action="manageProduct" id="formProduct" onsubmit="return validateForm() ? true : false">
 									<div class="row row-space">
 										<div class="col-12 mb-4">
 											<!-- Alert error -->
@@ -82,14 +82,14 @@
 											<div class="input-group">
 												<label class="label">Nome </label> 
 												<input class="input--style-4" type="text" name="name"
-													value="${product.name}" required="required">
+													value="${product.name}">
 											</div>										
 										</div>
 										<div class="col-12">
 											<div class="input-group">
 												<label class="label">Descrição</label>
 												<input class="input--style-4" type="text" name="desc"
-													value="${product.desc}" required="required">
+													value="${product.desc}">
 											</div>
 										</div>
 									<div class="row row-space">
@@ -104,8 +104,7 @@
 											<div class="input-group">
 												<label class="label">Valor</label> <input
 													class="input--style-4" type="number" name="value"
-													value="${product.value}" 
-													required="required">
+													value="${product.value}">
 											</div>
 										</div>
 									</div>
@@ -177,7 +176,7 @@
         </script>
 	<script src="vendor/select2/select2.min.js">
         </script>
-	<script src="Main/js/newUser.js">
+	<script src="Product/js/product.js">
         </script>
 	<!-- Main JS-->
 	<c:if test="${update}">

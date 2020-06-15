@@ -15,7 +15,7 @@
 	href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i"
 	rel="stylesheet">
 <link href="vendor/select2/select2.min.css" rel="stylesheet" media="all">
-<link href="User/css/newUser.css" rel="stylesheet" media="all">
+<link href="User/css/user.css" rel="stylesheet" media="all">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
 	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
@@ -210,7 +210,7 @@
         </script>
 	<script src="vendor/select2/select2.min.js">
         </script>
-	<script src="User/js/newUser.js">
+	<script src="User/js/user.js">
         </script>
 	<!-- Main JS-->
 	<c:if test="${update}">
