@@ -22,7 +22,7 @@ public class UserDao {
 		connection =  SingleConnection.getConnection();
 	}
 	
-	public void save(UserBean user) {
+	public boolean save(UserBean user) {
 		try {
 			String sql = "insert into users (login, password, name, last_name, gender, phone) values (?, ?, ?, ?, ?, ?)";
 			PreparedStatement st = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -38,6 +38,7 @@ public class UserDao {
 			if (rs.next()) {
 				user.setId(rs.getLong(1));
 			}
+			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
 			try {
@@ -46,14 +47,16 @@ public class UserDao {
 				e1.printStackTrace();
 			}
 		}
+		return false;
 	}
 	
-	public void delete(Long id) {
+	public boolean delete(Long id) {
 		try {
 			String sql = "delete from users where id = " + id;
 			PreparedStatement ps = connection.prepareStatement(sql);
 			ps.execute();	
 			connection.commit();
+			return true;
 		}catch (SQLException e) {
 			e.printStackTrace();
 			try {
@@ -62,6 +65,8 @@ public class UserDao {
 				e1.printStackTrace();
 			}
 		}
+		
+		return false;
 	}
 	
 	public List<UserBean> findAll(){
@@ -118,7 +123,7 @@ public class UserDao {
 		return null;
 	}
 
-	public void update(UserBean user) {		
+	public boolean update(UserBean user) {		
 		try {
 			String sql = "update users set login = ?, password = ?, name = ?, last_name = ?, gender = ?, phone = ? "
 					+ " where id = " + user.getId();
@@ -132,6 +137,7 @@ public class UserDao {
 			ps.setString(6, user.getPhone());
 			ps.executeUpdate();
 			connection.commit();
+			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
 			try {
@@ -139,7 +145,8 @@ public class UserDao {
 			} catch (SQLException e1) {
 				e1.printStackTrace();
 			}
-		}		
+		}
+		return false;		
 	}
 	
 	public boolean validateNewUser(String login) {

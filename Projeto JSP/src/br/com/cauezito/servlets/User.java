@@ -29,8 +29,9 @@ public class User extends HttpServlet {
 		String id = request.getParameter("id");
 		
 		if(action.equals("delete")) {
-			dao.delete(Long.parseLong(id));
-			request.setAttribute("msgSuccess", "Usuário deletado com sucesso!");
+			if(dao.delete(Long.parseLong(id))){
+				request.setAttribute("msgSuccess", "Usuário deletado com sucesso!");
+			}			
 			RequestDispatcher rd = request.getRequestDispatcher("/main.jsp");
 			request.setAttribute("users", dao.findAll());
 			rd.forward(request, response);
@@ -70,16 +71,18 @@ public class User extends HttpServlet {
 		}
 		
 		if(this.checkAtribute(id) && !dao.validateNewUser(login)) {
-			request.setAttribute("msgError", "Desculpe, esse login já está sendo utilizado. Tente outro!");
+			this.generateMessageError(request);
 		} else if(this.checkAtribute(id) && dao.validateNewUser(login)) {
-			dao.save(user);
-			request.setAttribute("msgSuccess", "Usuário cadastrado com sucesso.");
+			if(dao.save(user)) {
+				this.generateMessageSuccessSave(request);
+			}
 		} else if(!this.checkAtribute(id)){
 			if(!dao.validateUpdate(login, Long.parseLong(id))) {
-				request.setAttribute("msgError", "Desculpe, esse login já está sendo utilizado. Tente outro!");
+				this.generateMessageError(request);
 			} else {
-				dao.update(user);
-				request.setAttribute("msgSuccess", "As informações do usuário foram atualizadas com sucesso.");
+				if(dao.update(user)) {
+					this.generateMessageSuccessUpdate(request);
+				}				
 			}
 		}		
 		
@@ -91,5 +94,17 @@ public class User extends HttpServlet {
 	 private boolean checkAtribute(String atribute) {
 		return atribute == null || atribute.isEmpty();
 	}
+	 
+	 private void generateMessageError(HttpServletRequest request) {
+		 request.setAttribute("msgError", "Desculpe, esse login já está sendo utilizado. Tente outro!");
+	 }
+	 
+	 private void generateMessageSuccessSave(HttpServletRequest request) {
+		 request.setAttribute("msgSuccess", "Usuário cadastrado com sucesso.");
+	 }
+	 
+	 private void generateMessageSuccessUpdate(HttpServletRequest request) {
+		 request.setAttribute("msgSuccess", "As informações do usuário foram atualizadas com sucesso.");
+	 }
 
 }
