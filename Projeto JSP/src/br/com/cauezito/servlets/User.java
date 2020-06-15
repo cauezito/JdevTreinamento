@@ -68,6 +68,8 @@ public class User extends HttpServlet {
 		}
 
 		if(this.checkAttribute(id) && !dao.validateNewUser(login)) {
+			request.setAttribute("user", user);
+			request.setAttribute("update", true);
 			this.generateMessageError(request);
 		} else if(this.checkAttribute(id) && dao.validateNewUser(login)) {
 			if(dao.save(user)) {
@@ -76,7 +78,8 @@ public class User extends HttpServlet {
 		} else if(!this.checkAttribute(id)){
 			if(!dao.validateUpdate(login, Long.parseLong(id))) {
 				this.generateMessageError(request);
-				request.setAttribute("users", user);
+				request.setAttribute("user", user);
+				request.setAttribute("update", true);
 			} else {
 				if(dao.update(user)) {
 					this.generateMessageSuccessUpdate(request);

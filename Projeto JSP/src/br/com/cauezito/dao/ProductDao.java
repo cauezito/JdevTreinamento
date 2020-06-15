@@ -8,32 +8,29 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.cauezito.beans.UserBean;
+import br.com.cauezito.beans.ProductBean;
 import br.com.cauezito.jdbc.SingleConnection;
 
-public class UserDao {
-
+public class ProductDao {
 	private Connection connection;
 	
-	public UserDao() {
+	public ProductDao() {
 		connection =  SingleConnection.getConnection();
 	}
 	
-	public boolean save(UserBean user) {
+	public boolean save(ProductBean product) {
 		try {
-			String sql = "insert into users (login, password, name, last_name, gender, phone) values (?, ?, ?, ?, ?, ?)";
+			String sql = "insert into products (name, description, quantity, value) values (?, ?, ?, ?)";
 			PreparedStatement st = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-			st.setString(1, user.getLogin());
-			st.setString(2,  user.getPassword());
-			st.setString(3,  user.getName());
-			st.setString(4, user.getLastName());
-			st.setString(5, user.getGender());
-			st.setString(6, user.getPhone());
+			st.setString(1, product.getName());
+			st.setString(2, product.getDesc());
+			st.setInt	(3, product.getQuantity());
+			st.setDouble(4, product.getValue());
 			st.execute();
 			connection.commit();
 			ResultSet rs = st.getGeneratedKeys();
 			if (rs.next()) {
-				user.setId(rs.getLong(1));
+				product.setId(rs.getLong(1));
 			}		
 			return true;
 		} catch (SQLException e) {
@@ -49,7 +46,7 @@ public class UserDao {
 	
 	public boolean delete(Long id) {
 		try {
-			String sql = "delete from users where id = " + id;
+			String sql = "delete from products where id = " + id;
 			PreparedStatement ps = connection.prepareStatement(sql);
 			ps.execute();	
 			connection.commit();
@@ -66,23 +63,22 @@ public class UserDao {
 		return false;
 	}
 	
-	public List<UserBean> findAll(){
-		List<UserBean> list = new ArrayList<UserBean>();
+	public List<ProductBean> findAll(){
+		List<ProductBean> list = new ArrayList<ProductBean>();
 		
 		try {
-			String sql = "Select * from users";
+			String sql = "Select * from products";
 			PreparedStatement ps = connection.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
-				UserBean user = new UserBean();
-				user.setId(rs.getLong("id"));
-				user.setLogin(rs.getString("login"));
-				user.setPassword(rs.getString("password"));
-				user.setName(rs.getString("name"));
-				user.setLastName(rs.getString("last_name"));
-				user.setGender(rs.getString("gender"));
-				user.setPhone(rs.getString("phone"));
-				list.add(user);
+				ProductBean product = new ProductBean();
+				product.setId(rs.getLong("id"));
+				product.setName(rs.getString("name"));
+				product.setDesc(rs.getString("description"));
+				product.setQuantity(rs.getInt("quantity"));
+				product.setValue(rs.getDouble("value"));
+				
+				list.add(product);
 			}
 
 		} catch (SQLException e) {
@@ -92,21 +88,19 @@ public class UserDao {
 		return list;
 	}
 
-	public UserBean findById(Long id) {
+	public ProductBean findById(Long id) {
 		try {
-			String sql = "Select * from users where id = " + id;
+			String sql = "Select * from products where id = " + id;
 			PreparedStatement ps = connection.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
-				UserBean user = new UserBean();
-				user.setId(rs.getLong("id"));
-				user.setLogin(rs.getString("login"));
-				user.setPassword(rs.getString("password"));
-				user.setName(rs.getString("name"));
-				user.setLastName(rs.getString("last_name"));
-				user.setGender(rs.getString("gender"));
-				user.setPhone(rs.getString("phone"));
-				return user;
+				ProductBean product = new ProductBean();
+				product.setId(rs.getLong("id"));
+				product.setName(rs.getString("name"));
+				product.setDesc(rs.getString("description"));
+				product.setQuantity(rs.getInt("quantity"));
+				product.setValue(rs.getDouble("value"));
+				return product;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -120,18 +114,16 @@ public class UserDao {
 		return null;
 	}
 
-	public boolean update(UserBean user) {		
+	public boolean update(ProductBean product) {		
 		try {
-			String sql = "update users set login = ?, password = ?, name = ?, last_name = ?, gender = ?, phone = ? "
-					+ " where id = " + user.getId();
+			String sql = "update products set name = ?, description = ?, quantity = ?, value = ? "
+					+ " where id = " + product.getId();
 			PreparedStatement ps;
 			ps = connection.prepareStatement(sql);
-			ps.setString(1, user.getLogin());
-			ps.setString(2, user.getPassword());
-			ps.setString(3, user.getName());
-			ps.setString(4, user.getLastName());
-			ps.setString(5, user.getGender());
-			ps.setString(6, user.getPhone());
+			ps.setString(1, product.getName());
+			ps.setString(2, product.getDesc());
+			ps.setInt(3, product.getQuantity());
+			ps.setDouble(4, product.getValue());
 			ps.executeUpdate();
 			connection.commit();
 			return true;
@@ -146,9 +138,9 @@ public class UserDao {
 		return false;		
 	}
 	
-	public boolean validateNewUser(String login) {
+	public boolean validateNewProduct(String name) {
 		try {
-			String sql = "select count(1) as qtd from users where login = '" + login + "'";
+			String sql = "select count(1) as qtd from products where name = '" + name + "'";
 			PreparedStatement ps = connection.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
@@ -161,9 +153,9 @@ public class UserDao {
 		return false;
 	}
 	
-	public boolean validateUpdate(String login, Long id) {
+	public boolean validateUpdate(String name, Long id) {
 		try {
-			String sql = "select count(1) as qtd from users where login = '" + login + "'"
+			String sql = "select count(1) as qtd from products where name = '" + name + "'"
 					+ " and id <> " + id;
 			PreparedStatement ps = connection.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();

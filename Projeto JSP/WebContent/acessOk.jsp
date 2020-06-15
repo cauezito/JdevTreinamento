@@ -9,9 +9,21 @@
 <body>
 	
 	<div class="container-fluid">
-	<a href="manageUser?action=listAll">
-		<img alt="Usuários" title="Gerenciar usuários" src="vendor/img/team.png">
-	</a>
+		<div class="row">
+			<div class="col-4">
+				<a href="manageUser?action=listAll">
+					<img alt="Usuários" title="Gerenciar usuários" src="vendor/img/team.png">
+				</a>
+			</div>	
+		</div>	
+		<div class="row">
+			<div class="col-4">
+				<a href="manageProduct?action=listAll">
+					<img alt="Produtos" title="Gerenciar Produtos" src="vendor/img/products.png">
+				</a>
+			</div>
+		</div>
 	</div>
+	
 </body>
 </html>
