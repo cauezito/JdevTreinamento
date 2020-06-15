@@ -59,16 +59,16 @@
 									<div class="row row-space">
 										<div class="col-12 mb-4">
 											<!-- Alert error -->
-											<c:if test="${msgError != null}">
+											<c:forEach var="msg" items="${msgValidation}">
 												<div class="alert alert-danger alert-dismissible fade show"
 													role="alert">
-													${msgError}
+													${msg}
 													<button type="button" class="close" data-dismiss="alert"
 														aria-label="Close">
 														<span aria-hidden="true">&times;</span>
 													</button>
 												</div>
-											</c:if>
+											</c:forEach>
 											<!-- /Alert error -->
 										</div>
 										<div class="col-3">

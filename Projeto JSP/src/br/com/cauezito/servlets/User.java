@@ -1,6 +1,9 @@
 package br.com.cauezito.servlets;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -55,40 +58,70 @@ public class User extends HttpServlet {
 		String gender = request.getParameter("gender");
 		String phone = request.getParameter("phone").trim();
 
-		UserBean user = new UserBean();
-		user.setId(!id.isEmpty() ? Long.parseLong(id) : 0);
-		user.setLogin(login);
-		user.setPassword(password);
-		user.setName(name);		
-		user.setLastName(lastName);
-		user.setGender(gender);
-
-		if(this.checkAttribute(phone)) {	
-			user.setPhone(phone);
+		List<String> msg = new ArrayList<String>();
+		boolean okToInsert = true;
+		UserBean user = null;
+		
+		if(!this.checkAttribute(id)) {
+			user = dao.findById(Long.parseLong(id));
 		}
-
-		if(this.checkAttribute(id) && !dao.validateNewUser(login)) {
-			request.setAttribute("user", user);
-			request.setAttribute("update", true);
-			this.generateMessageError(request);
-		} else if(this.checkAttribute(id) && dao.validateNewUser(login)) {
-			if(dao.save(user)) {
-				this.generateMessageSuccessSave(request);
-			}
-		} else if(!this.checkAttribute(id)){
-			if(!dao.validateUpdate(login, Long.parseLong(id))) {
-				this.generateMessageError(request);
+		
+		//VALIDATION 
+		if(this.checkAttribute(login)) {
+			msg.add("É obrigatório informar um login.");
+			okToInsert = false;
+		} if (this.checkAttribute(password)) {
+			msg.add("É obrigatório informar uma senha.");
+			okToInsert = false;
+		} if(this.checkAttribute(name)) {
+			msg.add("É obrigatório informar um nome.");
+			okToInsert = false;
+		} if(this.checkAttribute(lastName)) {
+			msg.add("É obrigatório informar um sobrenome.");
+			okToInsert = false;
+		} 
+		
+		if(okToInsert) {	
+			user = new UserBean();
+			user.setId(!id.isEmpty() ? Long.parseLong(id) : 0);
+			user.setLogin(login);
+			user.setPassword(password);
+			user.setName(name);		
+			user.setLastName(lastName);
+			user.setGender(gender);
+			user.setPhone(phone);
+				
+			if(this.checkAttribute(id) && !dao.validateNewUser(login)) {
 				request.setAttribute("user", user);
 				request.setAttribute("update", true);
-			} else {
-				if(dao.update(user)) {
-					this.generateMessageSuccessUpdate(request);
+				this.generateMessageError(request);
+			} else if(this.checkAttribute(id) && dao.validateNewUser(login)) {
+				if(dao.save(user)) {
+					this.generateMessageSuccessSave(request);
+					okToInsert = true;
 				}
-			}			
+			} else if(!this.checkAttribute(id)){
+				if(!dao.validateUpdate(login, Long.parseLong(id))) {
+					this.generateMessageError(request);
+					request.setAttribute("user", user);
+					request.setAttribute("update", true);
+				} else {
+					if(dao.update(user)) {
+						this.generateMessageSuccessUpdate(request);
+						okToInsert = true;
+					}
+				}			
+			}
+		}		
+		
+		if(!okToInsert) {
+			request.setAttribute("user", user);
+			request.setAttribute("update", true);
+			request.setAttribute("msgValidation", msg);
 		}
 
 		RequestDispatcher rd = request.getRequestDispatcher("/main.jsp?action=listAll");
-		request.setAttribute("users", dao.findAll());
+		request.setAttribute("users", dao.findAll());		
 		rd.forward(request, response);	
 	}	
 
