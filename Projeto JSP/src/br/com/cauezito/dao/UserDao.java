@@ -37,7 +37,7 @@ public class UserDao {
 			ResultSet rs = st.getGeneratedKeys();
 			if (rs.next()) {
 				user.setId(rs.getLong(1));
-			}
+			}		
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
