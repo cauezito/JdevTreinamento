@@ -155,7 +155,8 @@ public class UserDao {
 				user.setName(rs.getString("name"));
 				user.setLastName(rs.getString("last_name"));
 				user.setGender(rs.getString("gender"));
-				user.setPhone(rs.getString("phone"));
+				user.setPhone(rs.getString("phone"));				
+				user.setAddress(this.findAddressById(Integer.parseInt(id.toString())));
 				return user;
 			}
 		} catch (SQLException e) {
