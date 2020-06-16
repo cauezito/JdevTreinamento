@@ -43,4 +43,10 @@ public class Filter implements javax.servlet.Filter{
 		SingleConnection.getConnection();
 	}
 
+	@Override
+	public void destroy() {
+		
+		
+	}
+
 }

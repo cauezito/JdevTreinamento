@@ -10,9 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import br.com.cauezito.beans.UserBean;
 import br.com.cauezito.dao.LoginDao;
-import br.com.cauezito.dao.UserDao;
  
 @WebServlet("/Login")
 public class Login extends HttpServlet {
@@ -31,17 +29,17 @@ public class Login extends HttpServlet {
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		UserBean user = new UserBean();
 		String login = request.getParameter("login");
 		String password = request.getParameter("password");
 		
 		try {
 			if(loginDao.validateLogin(login, password)) {
-				RequestDispatcher dispatcher = request.getRequestDispatcher("acessOk.jsp");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("main.jsp");
 				dispatcher.forward(request, response);
 				
 			} else {
-				RequestDispatcher dispatcher = request.getRequestDispatcher("acessDenied.jsp");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
+				request.setAttribute("msg", "Nome de usuário ou senha incorretos");
 				dispatcher.forward(request, response);
 			}
 		} catch (SQLException e) {

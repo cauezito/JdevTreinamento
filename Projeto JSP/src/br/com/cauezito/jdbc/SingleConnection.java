@@ -2,7 +2,6 @@ package br.com.cauezito.jdbc;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.SQLException;
 
 public class SingleConnection {
 	private static String url = "jdbc:postgresql://localhost:5432/projetojsp?autoReconnect=true";

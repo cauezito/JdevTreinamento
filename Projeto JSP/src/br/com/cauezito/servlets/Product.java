@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import br.com.cauezito.beans.ProductBean;
-import br.com.cauezito.beans.UserBean;
 import br.com.cauezito.dao.ProductDao;
 
 @WebServlet("/manageProduct")

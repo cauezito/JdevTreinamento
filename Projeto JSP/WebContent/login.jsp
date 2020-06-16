@@ -5,6 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta name="viewport" content="width=device-width, initial-scale=0.9">
 <meta charset="ISO-8859-1">
 <title>Entrar</title>
 	<link rel="icon" type="image/png" href="Login/images/icons/favicon.ico"/>
@@ -24,6 +25,16 @@
 <div class="limiter">
 		<div class="container-login100">
 			<div class="wrap-login100 p-l-85 p-r-85 p-t-55 p-b-55">
+			<c:if test="${msg != null}">
+				<div class="alert alert-danger alert-dismissible fade show"
+				role="alert">
+					${msg}
+					<button type="button" class="close" data-dismiss="alert"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+			</c:if>
 				<form class="login100-form validate-form flex-sb flex-w" action="Login" method="post">
 					<span class="login100-form-title p-b-32">
 						Entrar no sistema

@@ -176,13 +176,13 @@
         </script>
 	<script src="vendor/select2/select2.min.js">
         </script>
-	<script src="Product/js/product.js">
-        </script>
 	<!-- Main JS-->
 	<c:if test="${update}">
 		<script>
 	        $('#modalProduct').modal('show')
 	        </script>
 	</c:if>
+		<script src="Product/js/product-script.js">
+        </script>
 </body>
 </html>
