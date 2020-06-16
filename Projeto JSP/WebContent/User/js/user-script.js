@@ -10,3 +10,7 @@ function validateForm(){
 });  
   return isValid;
 }
+
+$(function () {
+	  $('[data-toggle="popover"]').popover()
+	})

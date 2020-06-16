@@ -8,12 +8,14 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.cauezito.beans.AddressBean;
 import br.com.cauezito.beans.UserBean;
 import br.com.cauezito.jdbc.SingleConnection;
 
 public class UserDao {
 
 	private Connection connection;
+	
 	
 	public UserDao() {
 		connection =  SingleConnection.getConnection();
@@ -30,11 +32,32 @@ public class UserDao {
 			st.setString(5, user.getGender());
 			st.setString(6, user.getPhone());
 			st.execute();
-			connection.commit();
+
 			ResultSet rs = st.getGeneratedKeys();
 			if (rs.next()) {
 				user.setId(rs.getLong(1));
-			}		
+			}
+			
+			connection.commit();
+			
+			sql = "insert into adresses (zip_code, address, area, locality, federated_unit, id_user) values (?, ?, ?, ?, ?, ?)";
+			st = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			st.setString(1, user.getAddress().getZipCode());
+			st.setString(2, user.getAddress().getAddress());
+			st.setString(3, user.getAddress().getArea());
+			st.setString(4, user.getAddress().getLocality());
+			st.setString(5, user.getAddress().getFederatedUnit());
+			st.setInt(6, Integer.parseInt(user.getId().toString()));
+			st.execute();
+			
+			rs = st.getGeneratedKeys();
+			if(rs.next()) {
+				user.getAddress().setId(rs.getInt(1));
+			}
+			
+			connection.commit();
+			
+			
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -81,8 +104,12 @@ public class UserDao {
 				user.setName(rs.getString("name"));
 				user.setLastName(rs.getString("last_name"));
 				user.setGender(rs.getString("gender"));
-				user.setPhone(rs.getString("phone"));
+				user.setPhone(rs.getString("phone"));			
+				
+				user.setAddress(this.findAddressById(Integer.parseInt(user.getId().toString())));				
+				
 				list.add(user);
+
 			}
 
 		} catch (SQLException e) {
@@ -90,6 +117,29 @@ public class UserDao {
 		}
 				
 		return list;
+	}
+	
+	public AddressBean findAddressById (Integer id){
+		AddressBean address = null;
+		try {
+			String sql = "Select * from adresses where id_user = " + id;
+			PreparedStatement ps = connection.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				address = new AddressBean();
+				address.setAddress(rs.getString("address"));
+				address.setArea(rs.getString("area"));
+				address.setZipCode(rs.getString("zip_code"));
+				address.setLocality(rs.getString("locality"));
+				address.setFederatedUnit(rs.getString("federated_unit"));
+				
+			}	
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return address;
 	}
 
 	public UserBean findById(Long id) {

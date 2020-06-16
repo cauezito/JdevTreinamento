@@ -8,6 +8,7 @@ public class UserBean {
 	private String lastName;
 	private String gender;
 	private String phone;
+	private AddressBean address;
 	
 	
 	public Long getId() {
@@ -51,6 +52,12 @@ public class UserBean {
 	}
 	public void setPhone(String phone) {
 		this.phone = phone;
+	}
+	public AddressBean getAddress() {
+		return address;
+	}
+	public void setAddress(AddressBean address) {
+		this.address = address;
 	}
 	
 }

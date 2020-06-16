@@ -25,13 +25,12 @@
 	<div class="container-fluid">
 
 		<!-- Button return -->
-		<a href="main.jsp" class="m-t-20 m-l-10 m-r-10">
-			<img alt="Voltar" src="vendor/img/back.png" title="voltar">
+		<a href="main.jsp" class="m-t-20 m-l-10 m-r-10"> <img alt="Voltar"
+			src="vendor/img/back.png" title="voltar">
+		</a> <a href="login.jsp" class="m-t-20 m-l-10 m-r-10"> <img alt="sair"
+			src="vendor/img/logout.png" title="sair">
 		</a>
-		<a href="login.jsp" class="m-t-20 m-l-10 m-r-10">
-			<img alt="sair" src="vendor/img/logout.png" title="sair">
-		</a>
-		
+
 		<!-- Button trigger modal -->
 		<button type="button" class="btn btn-light mt-4 mb-3"
 			data-toggle="modal" data-target="#modalUser">Novo usuário</button>
@@ -63,8 +62,8 @@
 					<div class="modal-body">
 						<div class="page-wrapper p-t-10 p-b-20 font-poppins">
 							<div class="wrapper wrapper--w680">
-								<form method="POST" action="manageUser" onsubmit="return validateForm() ? true : false"
-										id="formUser">
+								<form method="POST" action="manageUser"
+									onsubmit="return validateForm() ? true : false" id="formUser">
 									<div class="row row-space">
 										<div class="col-12 mb-4">
 											<!-- Alert error -->
@@ -104,7 +103,7 @@
 										</div>
 									</div>
 									<div class="row row-space">
-									<div class="col-7">
+										<div class="col-7">
 											<div class="input-group">
 												<label class="label">Telefone </label> <input
 													class="input--style-4" type="text" name="phone"
@@ -130,6 +129,7 @@
 											</div>
 										</div>
 									</div>
+
 									<div class="row row-space">
 										<div class="col-6">
 											<div class="input-group">
@@ -146,6 +146,54 @@
 											</div>
 										</div>
 									</div>
+
+									<!-- Address -->
+									<h6>Endereço</h6>
+									<hr>
+									<div class="row row-space">
+										<div class="col-3">
+											<div class="input-group">
+												<label class="label">Cep</label> <input
+													class="input--style-4" type="text" name="zipCode"
+													value="${user.address.zipCode}">
+											</div>
+										</div>
+										<div class="col-9">
+											<div class="input-group">
+												<label class="label">Rua</label> <input
+													class="input--style-4" type="text" name="address"
+													value="${user.address.address}">
+											</div>
+										</div>
+									</div>
+
+									<div class="row row-space">
+										<div class="col-5">
+											<div class="input-group">
+												<label class="label">Bairro</label> <input
+													class="input--style-4" type="text" name="area"
+													value="${user.address.area}">
+											</div>
+										</div>
+										<div class="col-5">
+											<div class="input-group">
+												<label class="label">Cidade</label> <input
+													class="input--style-4" type="text" name="locality"
+													value="${user.address.locality}">
+											</div>
+										</div>
+										<div class="col-2">
+											<div class="input-group">
+												<label class="label">UF</label> <input
+													class="input--style-4" type="text" name="federatedUnit"
+													value="${user.address.federatedUnit}">
+											</div>
+										</div>
+									</div>
+
+									<!-- /// -->
+
+
 									<div class="p-t-15">
 										<button class="btn btn--radius-2 btn--green" type="submit">Salvar
 										</button>
@@ -171,6 +219,7 @@
 					<th scope="col">Sobrenome</th>
 					<th scope="col">Gênero</th>
 					<th scope="col">Telefone</th>
+					<th scope="col">Endereço</th>
 					<th scope="col">Login</th>
 					<th scope="col">Senha</th>
 					<th scope="col">Deletar</th>
@@ -185,6 +234,19 @@
 						<td>${user.lastName}</td>
 						<td>${user.gender}</td>
 						<td>${user.phone}</td>
+						<td>
+							<button  type="button" class="btn
+								data-container="body" data-toggle="popover"
+								data-placement="right" data-html="true"
+								data-content="
+								<b>Cep:</b> ${user.address.zipCode} <br/>
+								<b>Rua:</b> ${user.address.address} <br/>
+								<b>Bairro:</b> ${user.address.area} <br/>
+								<b>Cidade:</b> ${user.address.locality} <br/>
+								<b>UF: </b> ${user.address.federatedUnit}" >
+								<img alt="ver" src="vendor/img/eye.png" style="margin-top: -14px">
+								</button>
+						</td>
 						<td>${user.login}</td>
 						<td>${user.password}</td>
 						<td><a class="ml-3"
@@ -224,7 +286,14 @@
 	<c:if test="${update}">
 		<script>
 	        $('#modalUser').modal('show')
+	      
 	    </script>
 	</c:if>
+	
+	<script>
+	  $(function () {
+			$('[data-toggle="popover"]').popover()
+		})
+	</script>
 </body>
 </html>

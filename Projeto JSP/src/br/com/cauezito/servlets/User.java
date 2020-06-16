@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import br.com.cauezito.beans.AddressBean;
 import br.com.cauezito.beans.UserBean;
 import br.com.cauezito.dao.UserDao;
 
@@ -50,6 +51,7 @@ public class User extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//User
 		String id = request.getParameter("id");
 		String login = request.getParameter("login").trim();
 		String password = request.getParameter("password").trim();
@@ -57,10 +59,19 @@ public class User extends HttpServlet {
 		String lastName = request.getParameter("lastName");
 		String gender = request.getParameter("gender");
 		String phone = request.getParameter("phone").trim();
+		
+		//Address
+		String zipCode = request.getParameter("zipCode");
+		String address = request.getParameter("address");
+		String area = request.getParameter("area");
+		String locality = request.getParameter("locality");
+		String federatedUnit = request.getParameter("federatedUnit");
+		
 
 		List<String> msg = new ArrayList<String>();
 		boolean okToInsert = true;
 		UserBean user = null;
+		AddressBean addressBean = null;
 		
 		//If there is an ID it means that the user wants to make an update
 		if(!this.checkAttribute(id)) {
@@ -82,6 +93,23 @@ public class User extends HttpServlet {
 			okToInsert = false;
 		} 
 		
+		
+		if(!this.checkAttribute(zipCode)) {
+			if(this.checkAttribute(address)) {
+				msg.add("É obrigatório informar uma rua.");
+				okToInsert = false;
+			} if (this.checkAttribute(area)) {
+				msg.add("É obrigatório informar um bairro.");
+				okToInsert = false;
+			} if(this.checkAttribute(locality)) {
+				msg.add("É obrigatório informar uma cidade.");
+				okToInsert = false;
+			} if(this.checkAttribute(federatedUnit)) {
+				msg.add("É obrigatório informar uma unidade federativa (UF).");
+				okToInsert = false;
+			} 
+		}
+		
 		if(okToInsert) {	
 			user = new UserBean();
 			user.setId(!id.isEmpty() ? Long.parseLong(id) : 0);
@@ -90,8 +118,17 @@ public class User extends HttpServlet {
 			user.setName(name);		
 			user.setLastName(lastName);
 			user.setGender(gender);
-			user.setPhone(phone);
-				
+			user.setPhone(phone);	
+			
+			addressBean  = new AddressBean();
+			addressBean.setAddress(address);
+			addressBean.setArea(area);
+			addressBean.setFederatedUnit(federatedUnit);
+			addressBean.setLocality(locality);
+			addressBean.setZipCode(zipCode);
+			
+			user.setAddress(addressBean);
+
 			if(this.checkAttribute(id) && !dao.validateNewUser(login)) {
 				request.setAttribute("user", user);
 				request.setAttribute("update", true);
@@ -123,6 +160,7 @@ public class User extends HttpServlet {
 
 		RequestDispatcher rd = request.getRequestDispatcher("/users.jsp?action=listAll");
 		request.setAttribute("users", dao.findAll());		
+		
 		rd.forward(request, response);	
 	}	
 
