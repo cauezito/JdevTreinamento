@@ -183,8 +183,10 @@ public class UserDao {
 			ps.setString(4, user.getLastName());
 			ps.setString(5, user.getGender());
 			ps.setString(6, user.getPhone());
-			ps.executeUpdate();
-			connection.commit();
+			ps.executeUpdate();		
+			connection.commit();	
+			this.updateAddress(Integer.parseInt(user.getId().toString()) ,user.getAddress());		
+			
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -195,6 +197,21 @@ public class UserDao {
 			}
 		}
 		return false;		
+	}
+	
+	private void updateAddress(Integer id, AddressBean address) throws SQLException {
+
+			String sql = "update adresses set zip_code = ?, address = ?, area = ?, locality = ?, federated_unit = ?"
+					+ " where id_user = " + id;
+			PreparedStatement ps;
+			ps = connection.prepareStatement(sql);
+			ps.setString(1, address.getZipCode());
+			ps.setString(2, address.getAddress());
+			ps.setString(3, address.getArea());
+			ps.setString(4, address.getLocality());
+			ps.setString(5, address.getFederatedUnit());			
+			ps.executeUpdate();
+			connection.commit();
 	}
 	
 	public boolean validateNewUser(String login) {
