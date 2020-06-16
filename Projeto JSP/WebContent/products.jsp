@@ -23,6 +23,14 @@
 <body>
 <div class="container-fluid">
 
+		<!-- Button return -->
+		<a href="main.jsp" class="m-t-20 m-l-10 m-r-10">
+			<img alt="Voltar" src="vendor/img/back.png" title="voltar">
+		</a>
+		<a href="login.jsp" class="m-t-20 m-l-10 m-r-10">
+			<img alt="sair" src="vendor/img/logout.png" title="sair">
+		</a>
+		
 		<!-- Button trigger modal -->
 		<button type="button" class="btn btn-light mt-4 mb-3"
 			data-toggle="modal" data-target="#modalProduct">Novo produto</button>
