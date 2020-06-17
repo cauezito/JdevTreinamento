@@ -57,20 +57,23 @@ public class UserDao {
 			}
 			
 			connection.commit();
-			
-			sql = "insert into photos (base64, content_type, id_user) values (?, ?, ?)";
-			st = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-			st.setString(1, user.getPhoto().getBase64());
-			st.setString(2, user.getPhoto().getContentType());
-			st.setInt(3, Integer.parseInt(user.getId().toString()));
-			st.execute();
-			
-			rs = st.getGeneratedKeys();
-			if(rs.next()) {
-				user.getPhoto().setId(rs.getInt(1));
+			if(user.getPhoto() != null) {
+				sql = "insert into photos (base64, content_type, id_user) values (?, ?, ?)";
+				st = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+				st.setString(1, user.getPhoto().getBase64());
+				st.setString(2, user.getPhoto().getContentType());
+				st.setInt(3, Integer.parseInt(user.getId().toString()));
+				st.execute();
+				
+				rs = st.getGeneratedKeys();
+				if(rs.next()) {
+					user.getPhoto().setId(rs.getInt(1));
+				}
+				
+				connection.commit();
 			}
 			
-			connection.commit();
+		
 			
 			return true;
 		} catch (SQLException e) {
@@ -86,7 +89,7 @@ public class UserDao {
 	
 	public boolean delete(Long id) {
 		try {
-			String sql = "delete from users where id = " + id;
+			String sql = "delete from users where login <> 'cauezito' and id = " + id;
 			PreparedStatement ps = connection.prepareStatement(sql);
 			ps.execute();	
 			connection.commit();
@@ -103,12 +106,21 @@ public class UserDao {
 		return false;
 	}
 	
-	public List<UserBean> findAll(){
+	public List<UserBean> findByName (String name){
+		String sql = "select * from users where login <> 'cauezito' and name ilike '%" + name + "%'";
+		return returnListUsers(sql);
+	}
+	
+	public List<UserBean> findAll(){		
+		String sql = "select * from users where login <> 'cauezito'";
+		return returnListUsers(sql);
+	}
+
+	private List<UserBean> returnListUsers(String sql){
 		List<UserBean> list = new ArrayList<UserBean>();
-		
+		PreparedStatement ps;
 		try {
-			String sql = "Select * from users where login <> 'cauezito'";
-			PreparedStatement ps = connection.prepareStatement(sql);
+			ps = connection.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
 				UserBean user = new UserBean();
@@ -124,13 +136,11 @@ public class UserDao {
 				user.setAddress(this.findAddressById(Integer.parseInt(user.getId().toString())));	
 				user.setPhoto(this.findPhotoById(Integer.parseInt(user.getId().toString())));
 				list.add(user);
-
 			}
-
-		} catch (SQLException e) {
+		}catch (SQLException e) {
 			e.printStackTrace();
 		}
-				
+	
 		return list;
 	}
 	
@@ -180,7 +190,7 @@ public class UserDao {
 
 	public UserBean findById(Long id) {
 		try {
-			String sql = "Select * from users where id = " + id;
+			String sql = "Select * from users where id = " + id + " and login <> 'cauezito'";
 			PreparedStatement ps = connection.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {

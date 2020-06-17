@@ -28,29 +28,54 @@
 </head>
 <body>
 	<div class="container-fluid">
-
-		<!-- Button return -->
-		<a href="main.jsp" class="m-t-20 m-l-10 m-r-10"> <img alt="Voltar"
-			src="vendor/img/back.png" title="voltar">
-		</a> <a href="login.jsp" class="m-t-20 m-l-10 m-r-10"> <img alt="sair"
-			src="vendor/img/logout.png" title="sair">
-		</a>
-
-		<!-- Button trigger modal -->
-		<button type="button" class="btn btn-light mt-4 mb-3"
-			data-toggle="modal" data-target="#modalUser">Novo usuário</button>
-		<!-- Alert success -->
-		<c:if test="${msgSuccess != null}">
-			<div class="alert alert-success alert-dismissible fade show"
-				role="alert">
-				${msgSuccess}
-				<button type="button" class="close" data-dismiss="alert"
-					aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
+		<div class="row mt-4">
+			<div class="col-1">
+				<!-- Button return -->
+				<a href="main.jsp" class="m-t-20 m-l-10 m-r-10"> <img alt="Voltar"
+					src="vendor/img/back.png" title="voltar">
+				</a> 
 			</div>
-		</c:if>
-		<!-- /Alert success -->
+			<div class="col-1">
+				<!-- Button logout -->
+				<a href="login.jsp" class="m-t-20 m-l-10 m-r-10"> <img alt="sair"
+					src="vendor/img/logout.png" title="sair">
+				</a>
+			</div>
+		</div>	
+		<div class="row mt-2">
+			<div class="col-3">
+				<!-- Button trigger modal -->
+				<button type="button" class="btn btn-light mt-4 mb-3"
+					data-toggle="modal" data-target="#modalUser">Novo usuário</button>
+			</div>
+			<div class="col-6">
+				<!-- Search form -->
+			  	<form class="form-inline" method="POST" action="search">
+			    	<input class="form-control mr-sm-2" type="search" placeholder="Buscar um usuário..." 
+			    	aria-label="Search" name="description" id="description">
+			    	<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Pesquisar</button>
+			  	</form>
+			</div>		
+		</div>	
+		<div class="row">
+			<div class="col-12">
+				<!-- Alert success -->
+				<c:if test="${msgSuccess != null}">
+					<div class="alert alert-success alert-dismissible fade show"
+						role="alert">
+						${msgSuccess}
+						<button type="button" class="close" data-dismiss="alert"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+				</c:if>
+				<!-- /Alert success -->
+			</div>
+		</div>
+		
+
+		
 
 		<!-- Modal for new/edit user -->
 		<div class="modal fade" id="modalUser" tabindex="-1" role="dialog"
@@ -241,6 +266,7 @@
 		</div>
 		<!-- /Modal for new/edit user -->
 
+		
 		<!-- Table users -->
 		<table class="table table-striped table-responsive-md">
 			<thead class="thead-dark">
