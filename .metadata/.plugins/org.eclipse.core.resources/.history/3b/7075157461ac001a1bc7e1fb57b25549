@@ -1,8 +1,0 @@
-package br.com.cauezito.model;
-
-public class Phone {
-	private Long id;
-	private String number;
-	private type;
-	private Long owner;
-}
