@@ -20,6 +20,11 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
 	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
 	crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+		integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+		crossorigin="anonymous">
+        </script>
+    <script src="vendor/jquery/jquery.js"></script>
 </head>
 <body>
 	<div class="container-fluid">
@@ -155,14 +160,14 @@
 											<div class="input-group">
 												<label class="label">Cep</label> <input
 													class="input--style-4" type="text" name="zipCode"
-													value="${user.address.zipCode}">
+													value="${user.address.zipCode}" id="zipCode">
 											</div>
 										</div>
 										<div class="col-9">
 											<div class="input-group">
 												<label class="label">Rua</label> <input
 													class="input--style-4" type="text" name="address"
-													value="${user.address.address}">
+													value="${user.address.address}" id="address">
 											</div>
 										</div>
 									</div>
@@ -172,21 +177,21 @@
 											<div class="input-group">
 												<label class="label">Bairro</label> <input
 													class="input--style-4" type="text" name="area"
-													value="${user.address.area}">
+													value="${user.address.area}" id="area">
 											</div>
 										</div>
 										<div class="col-5">
 											<div class="input-group">
 												<label class="label">Cidade</label> <input
 													class="input--style-4" type="text" name="locality"
-													value="${user.address.locality}">
+													value="${user.address.locality}" id="locality">
 											</div>
 										</div>
 										<div class="col-2">
 											<div class="input-group">
 												<label class="label">UF</label> <input
 													class="input--style-4" type="text" name="federatedUnit"
-													value="${user.address.federatedUnit}">
+													value="${user.address.federatedUnit}" id="federatedUnit">
 											</div>
 										</div>
 									</div>
@@ -264,10 +269,7 @@
 		<!-- /Table users -->
 	</div>
 
-	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-		integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-		crossorigin="anonymous">
-        </script>
+	
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
 		integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
@@ -290,10 +292,6 @@
 	    </script>
 	</c:if>
 	
-	<script>
-	  $(function () {
-			$('[data-toggle="popover"]').popover()
-		})
-	</script>
+	
 </body>
 </html>
