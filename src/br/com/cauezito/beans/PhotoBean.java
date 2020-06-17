@@ -4,6 +4,14 @@ public class PhotoBean {
 	private Integer id;
 	private String base64;
 	private String contentType;
+	private String tempPhoto;
+	
+	public String getTempPhoto() {
+		
+		tempPhoto = "data:" + contentType + ";base64," + base64;
+
+		return tempPhoto;
+	}
 	
 	public Integer getId() {
 		return id;

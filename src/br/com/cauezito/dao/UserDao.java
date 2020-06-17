@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.cauezito.beans.AddressBean;
+import br.com.cauezito.beans.PhotoBean;
 import br.com.cauezito.beans.UserBean;
 import br.com.cauezito.jdbc.SingleConnection;
 
@@ -106,7 +107,7 @@ public class UserDao {
 		List<UserBean> list = new ArrayList<UserBean>();
 		
 		try {
-			String sql = "Select * from users";
+			String sql = "Select * from users where login <> 'cauezito'";
 			PreparedStatement ps = connection.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
@@ -119,8 +120,9 @@ public class UserDao {
 				user.setGender(rs.getString("gender"));
 				user.setPhone(rs.getString("phone"));			
 				
-				user.setAddress(this.findAddressById(Integer.parseInt(user.getId().toString())));				
-				
+
+				user.setAddress(this.findAddressById(Integer.parseInt(user.getId().toString())));	
+				user.setPhoto(this.findPhotoById(Integer.parseInt(user.getId().toString())));
 				list.add(user);
 
 			}
@@ -140,6 +142,7 @@ public class UserDao {
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
 				address = new AddressBean();
+				address.setId(rs.getInt("id"));
 				address.setAddress(rs.getString("address"));
 				address.setArea(rs.getString("area"));
 				address.setZipCode(rs.getString("zip_code"));
@@ -153,6 +156,26 @@ public class UserDao {
 		}
 		
 		return address;
+	}
+	
+	public PhotoBean findPhotoById (Integer id){
+		PhotoBean photo = null;
+		try {
+			String sql = "Select * from photos where id_user = " + id;
+			PreparedStatement ps = connection.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				photo = new PhotoBean();
+				photo.setId(rs.getInt("id"));
+				photo.setBase64(rs.getString("base64"));
+				photo.setContentType(rs.getString("content_type"));				
+			}	
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return photo;
 	}
 
 	public UserBean findById(Long id) {

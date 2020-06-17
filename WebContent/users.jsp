@@ -246,6 +246,7 @@
 			<thead class="thead-dark">
 				<tr>
 					<th scope="col">ID</th>
+					<th scope="col">Foto</th>
 					<th scope="col">Nome</th>
 					<th scope="col">Sobrenome</th>
 					<th scope="col">Gênero</th>
@@ -261,6 +262,9 @@
 				<c:forEach items="${users}" var="user">
 					<tr>
 						<th scope="row">${user.id}</th>
+						<td>
+							<img src="${user.photo.tempPhoto}" width="32px" height="32px"/>	
+						</td>
 						<td>${user.name}</td>
 						<td>${user.lastName}</td>
 						<td>${user.gender}</td>
