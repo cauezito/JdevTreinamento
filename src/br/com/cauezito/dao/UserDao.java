@@ -57,6 +57,19 @@ public class UserDao {
 			
 			connection.commit();
 			
+			sql = "insert into photos (base64, content_type, id_user) values (?, ?, ?)";
+			st = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			st.setString(1, user.getPhoto().getBase64());
+			st.setString(2, user.getPhoto().getContentType());
+			st.setInt(3, Integer.parseInt(user.getId().toString()));
+			st.execute();
+			
+			rs = st.getGeneratedKeys();
+			if(rs.next()) {
+				user.getPhoto().setId(rs.getInt(1));
+			}
+			
+			connection.commit();
 			
 			return true;
 		} catch (SQLException e) {

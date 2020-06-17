@@ -6,10 +6,12 @@ import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
@@ -18,10 +20,13 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.tomcat.util.codec.binary.Base64;
 
 import br.com.cauezito.beans.AddressBean;
+import br.com.cauezito.beans.PhotoBean;
 import br.com.cauezito.beans.UserBean;
 import br.com.cauezito.dao.UserDao;
+import br.com.cauezito.util.ConversionByType;
 
 @WebServlet("/manageUser")
+@MultipartConfig
 public class User extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private UserDao dao = new UserDao();
@@ -117,20 +122,7 @@ public class User extends HttpServlet {
 			} 
 		}
 		
-		if(ServletFileUpload.isMultipartContent(request)) {
-			try {
-				List<FileItem> items = new ServletFileUpload(new DiskFileItemFactory()).parseRequest(request);
-				for (FileItem item : items) {
-					if(item.getFieldName().equals("photo"));
-						String photo = new Base64().encodeBase64String(item.get());
-					System.out.println(photo);
-				}
-				
-			} catch (FileUploadException e) {
-				
-				e.printStackTrace();
-			}
-		}	
+		
 		
 		if(okToInsert) {	
 			user = new UserBean();
@@ -150,6 +142,19 @@ public class User extends HttpServlet {
 			addressBean.setZipCode(zipCode);
 			
 			user.setAddress(addressBean);
+			
+			if(ServletFileUpload.isMultipartContent(request)) {
+				Part partPhoto = request.getPart("photo");
+				PhotoBean photoBean = new PhotoBean();
+				@SuppressWarnings("static-access")
+				String base64 = new Base64().encodeBase64String(
+						ConversionByType.streamToByte(partPhoto.getInputStream()));
+				
+				photoBean.setBase64(base64);
+				photoBean.setContentType(partPhoto.getContentType());
+				
+				user.setPhoto(photoBean);			
+			}	
 
 			if(this.checkAttribute(id) && !dao.validateNewUser(login)) {
 				request.setAttribute("user", user);

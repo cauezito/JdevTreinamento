@@ -9,6 +9,7 @@ public class UserBean {
 	private String gender;
 	private String phone;
 	private AddressBean address;
+	private PhotoBean photo;
 	
 	
 	public Long getId() {
@@ -59,5 +60,11 @@ public class UserBean {
 	public void setAddress(AddressBean address) {
 		this.address = address;
 	}
-	
+	public PhotoBean getPhoto() {
+		return photo;
+	}
+	public void setPhoto(PhotoBean photo) {
+		this.photo = photo;
+	}
+		
 }

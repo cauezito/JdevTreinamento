@@ -1,9 +1,2 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="java.sql.Statement"/>
-<fullyQualifiedTypeName name="br.com.cauezito.beans.AddressBean"/>
-<fullyQualifiedTypeName name="org.apache.commons.fileupload.FileItem"/>
-<fullyQualifiedTypeName name="org.apache.commons.fileupload.servlet.ServletFileUpload"/>
-<fullyQualifiedTypeName name="org.apache.commons.fileupload.disk.DiskFileItemFactory"/>
-<fullyQualifiedTypeName name="org.apache.tomcat.util.codec.binary.Base64"/>
-</qualifiedTypeNameHistroy>
+<qualifiedTypeNameHistroy/>
