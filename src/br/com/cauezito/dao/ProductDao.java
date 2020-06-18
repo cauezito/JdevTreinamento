@@ -21,12 +21,13 @@ public class ProductDao {
 	
 	public boolean save(ProductBean product) {
 		try {
-			String sql = "insert into products (name, description, quantity, value) values (?, ?, ?, ?)";
+			String sql = "insert into products (name, description, quantity, value, category) values (?, ?, ?, ?, ?)";
 			PreparedStatement st = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			st.setString(1, product.getName());
 			st.setString(2, product.getDesc());
 			st.setInt	(3, product.getQuantity());
 			st.setDouble(4, product.getValue());
+			st.setInt(5, product.getCategory().getId());
 			st.execute();
 			connection.commit();
 			ResultSet rs = st.getGeneratedKeys();
@@ -78,6 +79,7 @@ public class ProductDao {
 				product.setDesc(rs.getString("description"));
 				product.setQuantity(rs.getInt("quantity"));
 				product.setValue(rs.getDouble("value"));
+				product.setCategory(this.findCategoryById(rs.getInt("category")));			
 				
 				list.add(product);
 			}
@@ -101,6 +103,7 @@ public class ProductDao {
 				product.setDesc(rs.getString("description"));
 				product.setQuantity(rs.getInt("quantity"));
 				product.setValue(rs.getDouble("value"));
+				product.setCategory(this.findCategoryById(rs.getInt("category")));
 				return product;
 			}
 		} catch (SQLException e) {
@@ -117,7 +120,7 @@ public class ProductDao {
 
 	public boolean update(ProductBean product) {		
 		try {
-			String sql = "update products set name = ?, description = ?, quantity = ?, value = ? "
+			String sql = "update products set name = ?, description = ?, quantity = ?, value = ?, category = ? "
 					+ " where id = " + product.getId();
 			PreparedStatement ps;
 			ps = connection.prepareStatement(sql);
@@ -125,6 +128,7 @@ public class ProductDao {
 			ps.setString(2, product.getDesc());
 			ps.setInt(3, product.getQuantity());
 			ps.setDouble(4, product.getValue());
+			ps.setInt(5, product.getCategory().getId());
 			ps.executeUpdate();
 			connection.commit();
 			return true;
@@ -137,6 +141,44 @@ public class ProductDao {
 			}
 		}
 		return false;		
+	}	
+	
+	public List<CategoryBean> findAllCategories(){
+		List<CategoryBean> list = new ArrayList<CategoryBean>();
+		try {
+			String sql = "select * from categories";
+			PreparedStatement ps = connection.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+
+			while(rs.next()) {
+				CategoryBean cb = new CategoryBean();
+				cb.setId(rs.getInt("id"));
+				cb.setName(rs.getString("name"));
+				list.add(cb);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return list;
+	}
+
+	public CategoryBean findCategoryById(Integer id) {
+		CategoryBean category = null;
+		try {
+			String sql = "select * from categories where id =" + id;
+			PreparedStatement ps = connection.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				category = new CategoryBean();
+				category.setId(rs.getInt("id"));
+				category.setName(rs.getString("name"));
+			}
+			return category;
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}	
+		return null;
 	}
 	
 	public boolean validateNewProduct(String name) {

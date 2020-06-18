@@ -25,26 +25,24 @@ public class Product extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String action = request.getParameter("action");
-		String id = request.getParameter("id");		
+		String id = request.getParameter("id");	
+		
+		RequestDispatcher rd = request.getRequestDispatcher("/products.jsp");
 
 		if(action.equals("delete")) {
 			if(dao.delete(Long.parseLong(id))){
 				request.setAttribute("msgSuccess", "Produto deletado com sucesso!");
-			}			
-			RequestDispatcher rd = request.getRequestDispatcher("/products.jsp");
+			}						
 			request.setAttribute("products", dao.findAll());
-			rd.forward(request, response);
 		} else if(action.equals("update")) {
-			ProductBean product = dao.findById(Long.parseLong(id));			
-			RequestDispatcher rd = request.getRequestDispatcher("/products.jsp");
+			ProductBean product = dao.findById(Long.parseLong(id));		
 			request.setAttribute("update", true);
 			request.setAttribute("product", product);
-			rd.forward(request, response);
-		} else if(action.equals("listAll")) {
-			RequestDispatcher rd = request.getRequestDispatcher("/products.jsp");
-			request.setAttribute("products", dao.findAll());
-			rd.forward(request, response);
+		} else if(action.equals("listAll")) {			
+			request.setAttribute("products", dao.findAll());			
 		}
+		request.setAttribute("categories", dao.findAllCategories());
+		rd.forward(request, response);
 
 	}
 
@@ -54,6 +52,7 @@ public class Product extends HttpServlet {
 		String desc = request.getParameter("desc");
 		String quantity = request.getParameter("quantity").trim();
 		String value = request.getParameter("value").trim();
+		String category_id = request.getParameter("category_id");
 
 		List<String> msg = new ArrayList<String>();
 		boolean okToInsert = true;
@@ -85,6 +84,7 @@ public class Product extends HttpServlet {
 			product.setDesc(desc);
 			product.setQuantity(Integer.parseInt(quantity));
 			product.setValue(Double.parseDouble(value));
+			product.setCategory(dao.findCategoryById(Integer.parseInt(category_id)));
 
 			if(this.checkAttribute(id) && !dao.validateNewProduct(name)) {
 				request.setAttribute("product", product);
@@ -115,6 +115,7 @@ public class Product extends HttpServlet {
 
 		RequestDispatcher rd = request.getRequestDispatcher("/products.jsp?action=listAll");
 		request.setAttribute("products", dao.findAll());
+		request.setAttribute("categories", dao.findAllCategories());
 		rd.forward(request, response);	
 
 	}

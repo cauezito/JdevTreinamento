@@ -101,19 +101,33 @@
 											</div>
 										</div>
 									<div class="row row-space">
-										<div class="col-6">
+										<div class="col-3">
 											<div class="input-group">
 												<label class="label">Quantidade</label> <input
 													class="input--style-4" type="number" name="quantity"
 													value="${product.quantity}"  min="1" >
 											</div>
 										</div>
-										<div class="col-6">
+										<div class="col-3">
 											<div class="input-group">
 												<label class="label">Valor</label> <input
 													class="input--style-4" type="number" name="value"
 													value="${product.value}">
 											</div>
+										</div>
+										<div class="col-6">
+											<label class="label">Categoria</label>
+      											<select id="categories" class="form-control" name="category_id">
+        											
+        											<c:forEach items="${categories}" var="category">
+        												<option value="${category.id}" id="${category.id}"
+        													<c:if test="${category.id == product.category.id}">
+        													<c:out value="selected=selected"/>
+        													</c:if>>
+        													${category.name}
+        												 </option>
+        											</c:forEach>        											
+     											 </select>
 										</div>
 									</div>
 									<div class="p-t-15">
@@ -141,6 +155,7 @@
 					<th scope="col">Descrição</th>
 					<th scope="col">Quantidade</th>
 					<th scope="col">Valor</th>
+					<th scope="col">Categoria</th>
 					<th scope="col">Deletar</th>
 					<th scope="col">Editar</th>
 				</tr>
@@ -153,6 +168,7 @@
 						<td>${product.desc}</td>
 						<td>${product.quantity}</td>
 						<td>${product.value}</td>
+						<td>${product.category.name}</td>
 						<td><a class="ml-3"
 							href="manageProduct?action=delete&id=${product.id}"> <img
 								alt="Deletar" src="vendor/img/delete.png">
