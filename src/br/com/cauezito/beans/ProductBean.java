@@ -6,6 +6,7 @@ public class ProductBean {
 	private String desc;
 	private Integer quantity;
 	private Double value;
+	private CategoryBean category;
 	
 	public Long getId() {
 		return id;
@@ -36,5 +37,13 @@ public class ProductBean {
 	}
 	public void setValue(Double value) {
 		this.value = value;
+	}
+	
+	public CategoryBean getCategory() {
+		return category;
+	}
+	
+	public void setCategory(CategoryBean category) {
+		this.category = category;
 	}
 }
