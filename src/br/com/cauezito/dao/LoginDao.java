@@ -15,13 +15,20 @@ public class LoginDao {
 		connection = SingleConnection.getConnection();
 	}
 	
-	public boolean validateLogin(String login, String password) throws SQLException {
-		String sql = "Select from users where login = '" + login + "' and password = '" + password + "'";
-		PreparedStatement ps = connection.prepareStatement(sql);
-		ResultSet rs = ps.executeQuery();
-		if(rs.next()) {
-			return true;
-		}		
-		return false;
+	public String validateLogin(String login, String password) {
+		String sql = "Select * from users where login = '" + login + "' and password = '" + password + "'";
+		
+		try {
+			PreparedStatement ps;
+			ps = connection.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			if(rs.next()) {				
+				return rs.getString("login");
+			}		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
 	}
 }

@@ -9,6 +9,15 @@
   font-family: "Poppins", "Arial", "Helvetica Neue", sans-serif;
 }
 
+.search {
+    margin: 25px 0 0 -120px;
+    height: 45px;
+}
+
+body{
+	background-color: #a0c1b8;
+}
+
 /* ==========================================================================
    #INPUT
    ========================================================================== */

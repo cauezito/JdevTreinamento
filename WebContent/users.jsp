@@ -20,43 +20,45 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
 	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
 	crossorigin="anonymous">
-	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-		integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-		crossorigin="anonymous">
-        </script>
-    <script src="vendor/jquery/jquery.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+	integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+	crossorigin="anonymous">
+	
+</script>
+<script src="vendor/jquery/jquery.js"></script>
 </head>
-<body>
+<body style="background-color: #63707e;">
 	<div class="container-fluid">
-		<div class="row mt-4">
-			<div class="col-1">
-				<!-- Button return -->
-				<a href="main.jsp" class="m-t-20 m-l-10 m-r-10"> <img alt="Voltar"
-					src="vendor/img/back.png" title="voltar">
-				</a> 
-			</div>
-			<div class="col-1">
-				<!-- Button logout -->
-				<a href="login.jsp" class="m-t-20 m-l-10 m-r-10"> <img alt="sair"
-					src="vendor/img/logout.png" title="sair">
-				</a>
-			</div>
-		</div>	
+		<ul class="nav"
+			style="padding-top: 10px; height: 70px; margin: 0;">
+			<li class="nav-item"><a class="nav-link" href="main.jsp"> <img
+					alt="Voltar" src="vendor/img/back.png" title="voltar">
+			</a></li>
+			<li class="nav-item"><a class="nav-link" href="login.jsp"> <img
+					alt="sair" src="vendor/img/logout.png" title="sair">
+			</a></li>
+			<li class="nav-item">
+				<form class="form-inline" method="POST" action="search">
+					<input class="form-control mr-sm-2" type="search"
+						placeholder="Buscar um usuário..." aria-label="Search"
+						name="description" id="description">
+					<button class="btn btn-outline-light my-2 my-sm-0" type="submit">Pesquisar</button>
+				</form>
+			</li>
+		</ul>
 		<div class="row mt-2">
-			<div class="col-3">
+			<div class="col-2">
 				<!-- Button trigger modal -->
 				<button type="button" class="btn btn-light mt-4 mb-3"
 					data-toggle="modal" data-target="#modalUser">Novo usuário</button>
 			</div>
-			<div class="col-6">
+			<div class="col-6 search"
+				style="margin: 25px 0 0 -70px; height: 45px;">
 				<!-- Search form -->
-			  	<form class="form-inline" method="POST" action="search">
-			    	<input class="form-control mr-sm-2" type="search" placeholder="Buscar um usuário..." 
-			    	aria-label="Search" name="description" id="description">
-			    	<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Pesquisar</button>
-			  	</form>
-			</div>		
-		</div>	
+
+			</div>
+		</div>
+
 		<div class="row">
 			<div class="col-12">
 				<!-- Alert success -->
@@ -73,9 +75,6 @@
 				<!-- /Alert success -->
 			</div>
 		</div>
-		
-
-		
 
 		<!-- Modal for new/edit user -->
 		<div class="modal fade" id="modalUser" tabindex="-1" role="dialog"
@@ -120,16 +119,14 @@
 									<div class="row row-space">
 										<div class="col-6">
 											<div class="input-group ">
-											<label class="label">Nome </label> 
-												<input
+												<label class="label">Nome </label> <input
 													class="input--style-4" type="text" name="name"
 													value="${user.name}">
 											</div>
 										</div>
 										<div class="col-6">
 											<div class="input-group">
-											<label class="label">Sobrenome</label> 
-												 <input
+												<label class="label">Sobrenome</label> <input
 													class="input--style-4" type="text" name="lastName"
 													value="${user.lastName}">
 											</div>
@@ -138,8 +135,7 @@
 									<div class="row row-space">
 										<div class="col-7">
 											<div class="input-group">
-											<label class="label">Telefone</label> 
-												 <input
+												<label class="label">Telefone</label> <input
 													class="input--style-4" type="text" name="phone"
 													value="${user.phone}">
 											</div>
@@ -167,16 +163,14 @@
 									<div class="row row-space">
 										<div class="col-6">
 											<div class="input-group">
-											<label class="label">Nickname</label> 
-												 <input
+												<label class="label">Nickname</label> <input
 													class="input--style-4" type="text" name="login"
 													value="${user.login}">
 											</div>
 										</div>
 										<div class="col-6">
 											<div class="input-group">
-											<label class="label">Senha </label> 
-												<input
+												<label class="label">Senha </label> <input
 													class="input--style-4 " type="password" name="password"
 													value="${user.password}">
 											</div>
@@ -189,17 +183,15 @@
 									<div class="row row-space">
 										<div class="col-3">
 											<div class="input-group">
-											<label class="label">Cep</label> 
-											 <input
+												<label class="label">Cep</label> <input
 													class="input--style-4" type="text" name="zipCode"
 													value="${user.address.zipCode}" id="zipCode">
 											</div>
 										</div>
 										<div class="col-9">
 											<div class="input-group">
-											<label class="label">Rua</label> 
-												 <input
-													class="input--style-4" type="text" name="address" 
+												<label class="label">Rua</label> <input
+													class="input--style-4" type="text" name="address"
 													value="${user.address.address}" id="address" readonly>
 											</div>
 										</div>
@@ -208,45 +200,41 @@
 									<div class="row row-space">
 										<div class="col-5">
 											<div class="input-group">
-											<label class="label">Bairro </label> 
-												 <input
+												<label class="label">Bairro </label> <input
 													class="input--style-4" type="text" name="area"
 													value="${user.address.area}" id="area" readonly>
 											</div>
 										</div>
 										<div class="col-5">
 											<div class="input-group">
-											<label class="label">Cidade </label> 
-												<input
+												<label class="label">Cidade </label> <input
 													class="input--style-4" type="text" name="locality"
 													value="${user.address.locality}" id="locality" readonly>
 											</div>
 										</div>
 										<div class="col-2">
 											<div class="input-group">
-											<label class="label">UF</label> 
-												 <input
+												<label class="label">UF</label> <input
 													class="input--style-4" type="text" name="federatedUnit"
-													value="${user.address.federatedUnit}" id="federatedUnit" readonly>
+													value="${user.address.federatedUnit}" id="federatedUnit"
+													readonly>
 											</div>
 										</div>
 									</div>
 
 									<!-- /// -->
-									
+
 									<!-- PHOTO AND PDF -->
 									<div class="row row-space">
 										<div class="col-6">
 											<div class="input-group">
-											<label class="label">Foto</label> 
-												 <input
-													class="input--style-4" type="file" name="photo"
-													 id="photo">
+												<label class="label">Foto</label> <input
+													class="input--style-4" type="file" name="photo" id="photo">
 											</div>
 										</div>
-										
+
 									</div>
-									
+
 									<!-- /// -->
 
 
@@ -266,78 +254,85 @@
 		</div>
 		<!-- /Modal for new/edit user -->
 
-		
-		<!-- Table users -->
-		<table class="table table-striped table-responsive-md">
-			<thead class="thead-dark">
-				<tr>
-					<th scope="col">ID</th>
-					<th scope="col">Foto</th>
-					<th scope="col">Nome</th>
-					<th scope="col">Sobrenome</th>
-					<th scope="col">Gênero</th>
-					<th scope="col">Telefone</th>
-					<th scope="col">Endereço</th>
-					<th scope="col">Login</th>
-					<th scope="col">Senha</th>
-					<th scope="col">Deletar</th>
-					<th scope="col">Editar</th>
-				</tr>
-			</thead>
-			<tbody>
-				<c:forEach items="${users}" var="user">
-					<tr>
-						<th scope="row">${user.id}</th>
-						<td>
-							<img src="${user.photo.tempPhoto}" width="32px" height="32px"/>	
-						</td>
-						<td>${user.name}</td>
-						<td>${user.lastName}</td>
-						<td>${user.gender}</td>
-						<td>${user.phone}</td>
-						<td>
-							<button  type="button" class="btn
-								data-container="body" data-toggle="popover"
-								data-placement="right" data-html="true"
-								data-content="
+		<div class="card">
+			<div class="card-body">
+				<!-- Table users -->
+				<table class="table table-striped table-responsive-md">
+					<thead class="thead-dark">
+						<tr>
+							<th scope="col">ID</th>
+							<th scope="col">Foto</th>
+							<th scope="col">Nome</th>
+							<th scope="col">Sobrenome</th>
+							<th scope="col">Gênero</th>
+							<th scope="col">Telefone</th>
+							<th scope="col">Endereço</th>
+							<th scope="col">Login</th>
+							<th scope="col">Senha</th>
+							<th scope="col">Deletar</th>
+							<th scope="col">Editar</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach items="${users}" var="user">
+							<tr>
+								<th scope="row">${user.id}</th>
+								<td><img src="${user.photo.tempPhoto}" width="32px"
+									height="32px" /></td>
+								<td>${user.name}</td>
+								<td>${user.lastName}</td>
+								<td>${user.gender}</td>
+								<td>${user.phone}</td>
+								<td>
+									<button type="button" class="btn
+								data-container="
+										body" data-toggle="popover" data-placement="right"
+										data-html="true"
+										data-content="
 								<b>Cep:</b> ${user.address.zipCode} <br/>
 								<b>Rua:</b> ${user.address.address} <br/>
 								<b>Bairro:</b> ${user.address.area} <br/>
 								<b>Cidade:</b> ${user.address.locality} <br/>
-								<b>UF: </b> ${user.address.federatedUnit}" >
-								<img alt="ver" src="vendor/img/eye.png" style="margin-top: -14px">
-								</button>
-						</td>
-						<td>${user.login}</td>
-						<td>${user.password}</td>
-						<td><a class="ml-3"
-							href="manageUser?action=delete&id=${user.id}"> <img
-								alt="Deletar" src="vendor/img/delete.png">
-						</a></td>
-						<td><a class="ml-2"
-							href="manageUser?action=update&id=${user.id}"> <img
-								alt="Editar" src="vendor/img/edit.png">
-						</a></td>
-					</tr>
-				</c:forEach>
-			</tbody>
-		</table>
-		<!-- /Table users -->
+								<b>UF: </b> ${user.address.federatedUnit}">
+										<img alt="ver" src="vendor/img/eye.png"
+											style="margin-top: -14px">
+									</button>
+								</td>
+								<td>${user.login}</td>
+								<td>${user.password}</td>
+								<td><a class="ml-3"
+									href="manageUser?action=delete&id=${user.id}"> <img
+										alt="Deletar" src="vendor/img/delete.png">
+								</a></td>
+								<td><a class="ml-2"
+									href="manageUser?action=update&id=${user.id}"> <img
+										alt="Editar" src="vendor/img/edit.png">
+								</a></td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+				<!-- /Table users -->
+			</div>
+		</div>
 	</div>
 
-	
+
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
 		integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
 		crossorigin="anonymous">
-        </script>
+		
+	</script>
 	<script
 		src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
 		integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
 		crossorigin="anonymous">
-        </script>
+		
+	</script>
 	<script src="vendor/select2/select2.min.js">
-        </script>
+		
+	</script>
 	<script src="User/js/user-script.js">
         </script>
 	<!-- Main JS-->
@@ -347,7 +342,7 @@
 	      
 	    </script>
 	</c:if>
-	
-	
+
+
 </body>
 </html>

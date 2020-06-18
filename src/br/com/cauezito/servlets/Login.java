@@ -11,16 +11,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import br.com.cauezito.dao.LoginDao;
- 
+
 @WebServlet("/Login")
 public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private LoginDao loginDao = new LoginDao();
-       
 
-    public Login() {
-        super();
-    }
+
+	public Login() {
+		super();
+	}
 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -31,21 +31,18 @@ public class Login extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String login = request.getParameter("login");
 		String password = request.getParameter("password");
-		
-		try {
-			if(loginDao.validateLogin(login, password)) {
-				RequestDispatcher dispatcher = request.getRequestDispatcher("main.jsp");
-				dispatcher.forward(request, response);
-				
-			} else {
-				RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
-				request.setAttribute("msg", "Nome de usuário ou senha incorretos");
-				dispatcher.forward(request, response);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
+
+		String loginUser = loginDao.validateLogin(login, password);
+		if(loginUser != null) {
+			RequestDispatcher dispatcher = request.getRequestDispatcher("main.jsp");
+			request.setAttribute("loginUser", loginUser);
+			dispatcher.forward(request, response);
+
+		} else {
+			RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
+			request.setAttribute("msg", "Nome de usuário ou senha incorretos");
+			dispatcher.forward(request, response);
+		}		
 	}
 
 }

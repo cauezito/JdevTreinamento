@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
@@ -20,17 +20,17 @@
 	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
 	crossorigin="anonymous">
 </head>
-<body>
-<div class="container-fluid">
+<body style="background-color: #63707e;">
+	<div class="container-fluid">
+		<ul class="nav" style="padding-top: 10px; height: 70px; margin: 0;">
+			<li class="nav-item"><a class="nav-link" href="main.jsp"> <img
+					alt="Voltar" src="vendor/img/back.png" title="voltar">
+			</a></li>
+			<li class="nav-item"><a class="nav-link" href="login.jsp"> <img
+					alt="sair" src="vendor/img/logout.png" title="sair">
+			</a></li>
+		</ul>
 
-		<!-- Button return -->
-		<a href="main.jsp" class="m-t-20 m-l-10 m-r-10">
-			<img alt="Voltar" src="vendor/img/back.png" title="voltar">
-		</a>
-		<a href="login.jsp" class="m-t-20 m-l-10 m-r-10">
-			<img alt="sair" src="vendor/img/logout.png" title="sair">
-		</a>
-		
 		<!-- Button trigger modal -->
 		<button type="button" class="btn btn-light mt-4 mb-3"
 			data-toggle="modal" data-target="#modalProduct">Novo produto</button>
@@ -62,7 +62,8 @@
 					<div class="modal-body">
 						<div class="page-wrapper p-t-10 p-b-20 font-poppins">
 							<div class="wrapper wrapper--w680">
-								<form method="POST" action="manageProduct" id="formProduct" onsubmit="return validateForm() ? true : false">
+								<form method="POST" action="manageProduct" id="formProduct"
+									onsubmit="return validateForm() ? true : false">
 									<div class="row row-space">
 										<div class="col-12 mb-4">
 											<!-- Alert error -->
@@ -76,36 +77,36 @@
 													</button>
 												</div>
 											</c:forEach>
-											
+
 											<!-- /Alert error -->
 										</div>
+									</div>
+									<div class="col-3">
+										<div class="input-group">
+											<input class="input--style-4 form-control" readonly
+												type="text" name="id" value="${product.id}" placeholder="ID">
 										</div>
-										<div class="col-3">
-											<div class="input-group">
-												<input class="input--style-4 form-control" readonly
-													type="text" name="id" value="${product.id}" placeholder="ID">
-											</div>
+									</div>
+									<div class="col-12">
+										<div class="input-group">
+											<label class="label">Nome </label> <input
+												class="input--style-4" type="text" name="name"
+												value="${product.name}">
 										</div>
-										<div class="col-12">
-											<div class="input-group">
-												<label class="label">Nome </label> 
-												<input class="input--style-4" type="text" name="name"
-													value="${product.name}">
-											</div>										
+									</div>
+									<div class="col-12">
+										<div class="input-group">
+											<label class="label">Descrição</label> <input
+												class="input--style-4" type="text" name="desc"
+												value="${product.desc}">
 										</div>
-										<div class="col-12">
-											<div class="input-group">
-												<label class="label">Descrição</label>
-												<input class="input--style-4" type="text" name="desc"
-													value="${product.desc}">
-											</div>
-										</div>
+									</div>
 									<div class="row row-space">
 										<div class="col-3">
 											<div class="input-group">
 												<label class="label">Quantidade</label> <input
 													class="input--style-4" type="number" name="quantity"
-													value="${product.quantity}"  min="1" >
+													value="${product.quantity}" min="1">
 											</div>
 										</div>
 										<div class="col-3">
@@ -116,18 +117,17 @@
 											</div>
 										</div>
 										<div class="col-6">
-											<label class="label">Categoria</label>
-      											<select id="categories" class="form-control" name="category_id">
-        											
-        											<c:forEach items="${categories}" var="category">
-        												<option value="${category.id}" id="${category.id}"
-        													<c:if test="${category.id == product.category.id}">
+											<label class="label">Categoria</label> <select
+												id="categories" class="form-control" name="category_id">
+
+												<c:forEach items="${categories}" var="category">
+													<option value="${category.id}" id="${category.id}"
+														<c:if test="${category.id == product.category.id}">
         													<c:out value="selected=selected"/>
         													</c:if>>
-        													${category.name}
-        												 </option>
-        											</c:forEach>        											
-     											 </select>
+														${category.name}</option>
+												</c:forEach>
+											</select>
 										</div>
 									</div>
 									<div class="p-t-15">
@@ -147,43 +147,47 @@
 		<!-- /Modal for new/edit product -->
 
 		<!-- Table product -->
-		<table class="table table-striped table-responsive-md">
-			<thead class="thead-dark">
-				<tr>
-					<th scope="col">ID</th>
-					<th scope="col">Nome</th>
-					<th scope="col">Descrição</th>
-					<th scope="col">Quantidade</th>
-					<th scope="col">Valor</th>
-					<th scope="col">Categoria</th>
-					<th scope="col">Deletar</th>
-					<th scope="col">Editar</th>
-				</tr>
-			</thead>
-			<tbody>
-				<c:forEach items="${products}" var="product">
-					<tr>
-						<th scope="row">${product.id}</th>
-						<td>${product.name}</td>
-						<td>${product.desc}</td>
-						<td>${product.quantity}</td>
-						<td>${product.value}</td>
-						<td>${product.category.name}</td>
-						<td><a class="ml-3"
-							href="manageProduct?action=delete&id=${product.id}"> <img
-								alt="Deletar" src="vendor/img/delete.png">
-						</a></td>
-						<td><a class="ml-2"
-							href="manageProduct?action=update&id=${product.id}"> <img
-								alt="Editar" src="vendor/img/edit.png">
-						</a></td>
-					</tr>
-				</c:forEach>
-			</tbody>
-		</table>
-		<!-- /Table products -->
+		<div class="card">
+			<div class="card-body">
+				<table class="table table-striped table-responsive-md">
+					<thead class="thead-dark">
+						<tr>
+							<th scope="col">ID</th>
+							<th scope="col">Nome</th>
+							<th scope="col">Descrição</th>
+							<th scope="col">Quantidade</th>
+							<th scope="col">Valor</th>
+							<th scope="col">Categoria</th>
+							<th scope="col">Deletar</th>
+							<th scope="col">Editar</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach items="${products}" var="product">
+							<tr>
+								<th scope="row">${product.id}</th>
+								<td>${product.name}</td>
+								<td>${product.desc}</td>
+								<td>${product.quantity}</td>
+								<td>${product.value}</td>
+								<td>${product.category.name}</td>
+								<td><a class="ml-3"
+									href="manageProduct?action=delete&id=${product.id}"> <img
+										alt="Deletar" src="vendor/img/delete.png">
+								</a></td>
+								<td><a class="ml-2"
+									href="manageProduct?action=update&id=${product.id}"> <img
+										alt="Editar" src="vendor/img/edit.png">
+								</a></td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+				<!-- /Table products -->
+			</div>
+		</div>
 	</div>
-	
+
 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
 		integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
 		crossorigin="anonymous">
@@ -206,7 +210,7 @@
 	        $('#modalProduct').modal('show')
 	        </script>
 	</c:if>
-		<script src="Product/js/product-script.js">
+	<script src="Product/js/product-script.js">
         </script>
 </body>
 </html>
