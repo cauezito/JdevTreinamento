@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.cauezito.beans.CategoryBean;
 import br.com.cauezito.beans.ProductBean;
 import br.com.cauezito.jdbc.SingleConnection;
 
