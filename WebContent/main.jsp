@@ -42,6 +42,13 @@
 					Produtos
 				</a>
 			</div>
+			<div class="col-sm-2 col-md-1">
+				<a href="excecoesAjax.jsp"> 
+				<img alt="Usuários"	title="Capturando exceções com Ajax e Jquery" src="" width="64"
+					height="64"> 
+					Capturando exceções com Ajax com Jquery
+				</a>
+			</div>
 		</div>
 	</div>
 
