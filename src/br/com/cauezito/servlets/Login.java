@@ -9,7 +9,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import br.com.cauezito.beans.UserBean;
 import br.com.cauezito.dao.LoginDao;
 
 @WebServlet("/Login")
@@ -24,22 +26,26 @@ public class Login extends HttpServlet {
 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doPost(request, response);
+		
 	}
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String login = request.getParameter("login");
 		String password = request.getParameter("password");
-
-		String loginUser = loginDao.validateLogin(login, password);
-		if(loginUser != null) {
-			RequestDispatcher dispatcher = request.getRequestDispatcher("main.jsp");
-			request.setAttribute("loginUser", loginUser);
+		System.out.println(login);
+		UserBean user = loginDao.validateLogin(login, password);
+		
+		if(user != null) {
+			HttpServletRequest req = (HttpServletRequest) request;
+			HttpSession session = req.getSession();
+			session.setAttribute("user", user);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/PrivatePages/main.jsp");
+			request.setAttribute("loginUser", user.getLogin());
 			dispatcher.forward(request, response);
 
 		} else {
-			RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/PublicPages/login.jsp");
 			request.setAttribute("msg", "Nome de usuário ou senha incorretos");
 			dispatcher.forward(request, response);
 		}		

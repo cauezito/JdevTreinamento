@@ -43,17 +43,17 @@ public class User extends HttpServlet {
 			if(dao.delete(Long.parseLong(id))){
 				request.setAttribute("msgSuccess", "Usuário deletado com sucesso!");
 			}			
-			RequestDispatcher rd = request.getRequestDispatcher("/users.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/PrivatePages/users.jsp");
 			request.setAttribute("users", dao.findAll());
 			rd.forward(request, response);
 		} else if(action.equals("update")) {
 			UserBean user = dao.findById(Long.parseLong(id));			
-			RequestDispatcher rd = request.getRequestDispatcher("/users.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/PrivatePages/users.jsp");
 			request.setAttribute("update", true);
 			request.setAttribute("user", user);
 			rd.forward(request, response);
 		} else if(action.equals("listAll")) {
-			RequestDispatcher rd = request.getRequestDispatcher("/users.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/PrivatePages/users.jsp");
 			request.setAttribute("users", dao.findAll());
 			rd.forward(request, response);
 		}
@@ -186,7 +186,7 @@ public class User extends HttpServlet {
 			request.setAttribute("msgValidation", msg);
 		}
 
-		RequestDispatcher rd = request.getRequestDispatcher("/users.jsp?action=listAll");
+		RequestDispatcher rd = request.getRequestDispatcher("/PrivatePages/users.jsp?action=listAll");
 		request.setAttribute("users", dao.findAll());			
 		
 		rd.forward(request, response);	

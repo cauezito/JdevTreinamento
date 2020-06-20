@@ -25,7 +25,7 @@ public class Search extends HttpServlet {
 
 		String description = request.getParameter("description");
 		if(description != null) {
-				RequestDispatcher rd = request.getRequestDispatcher("/users.jsp");
+				RequestDispatcher rd = request.getRequestDispatcher("PrivateUsers/users.jsp");
 				request.setAttribute("users", dao.findByName(description));
 				rd.forward(request, response);
 		}

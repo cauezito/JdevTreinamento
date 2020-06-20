@@ -27,7 +27,7 @@ public class Product extends HttpServlet {
 		String action = request.getParameter("action");
 		String id = request.getParameter("id");	
 		
-		RequestDispatcher rd = request.getRequestDispatcher("/products.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("PrivatePages/products.jsp");
 
 		if(action.equals("delete")) {
 			if(dao.delete(Long.parseLong(id))){

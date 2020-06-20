@@ -35,7 +35,7 @@
 					</button>
 				</div>
 			</c:if>
-				<form class="login100-form validate-form flex-sb flex-w" action="Login" method="post">
+				<form class="login100-form validate-form flex-sb flex-w" action="../Login" method="post">
 					<span class="login100-form-title p-b-32">
 						Entrar no sistema
 					</span>
@@ -90,7 +90,7 @@
 	
 	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
 	<script src="vendor/animsition/js/animsition.min.js"></script>
-	<script src="vendor/bootstrap/js/popper.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.4.2/cjs/popper.min.js"></script>
 	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
 	<script src="vendor/select2/select2.min.js"></script>
 	<script src="vendor/daterangepicker/moment.min.js"></script>
