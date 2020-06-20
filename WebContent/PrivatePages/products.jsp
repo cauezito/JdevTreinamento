@@ -5,32 +5,24 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Products</title>
-<link href="vendor/mdi-font/css/material-design-iconic-font.min.css"
-	rel="stylesheet" media="all">
-<link href="vendor/font-awesome-4.7/css/font-awesome.min.css"
-	rel="stylesheet" media="all">
-<link
-	href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i"
+<title>Produtos</title>
+<link href="vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
+<link href="vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
+<link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i"
 	rel="stylesheet">
 <link href="vendor/select2/select2.min.css" rel="stylesheet" media="all">
 <link href="Product/css/product.css" rel="stylesheet" media="all">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-	crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
 </head>
 <body style="background-color: #63707e;">
 	<div class="container-fluid">
 		<ul class="nav" style="padding-top: 10px; height: 70px; margin: 0;">
-			<li class="nav-item"> 
-				<img alt="Voltar" src="vendor/img/back.png" class="nav-link" onclick="goBack();" title="voltar">
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" href="manageUser?action=logout"> 
-				<img alt="sair" src="vendor/img/logout.png" title="sair">
-				</a>
-			</li>
+			<li class="nav-item"><img alt="Voltar" src="vendor/img/back.png"
+				class="nav-link" onclick="goBack();" title="voltar"></li>
+			<li class="nav-item"><a class="nav-link"
+				href="manageUser?action=logout"> <img alt="sair"
+					src="vendor/img/logout.png" title="sair">
+			</a></li>
 		</ul>
 
 		<!-- Button trigger modal -->
@@ -190,29 +182,15 @@
 		</div>
 	</div>
 
-	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-		integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-		crossorigin="anonymous">
-        </script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-		integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-		crossorigin="anonymous">
-        </script>
-	<script
-		src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-		integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-		crossorigin="anonymous">
-        </script>
-	<script src="vendor/select2/select2.min.js">
-        </script>
-	<!-- Main JS-->
+	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+	<script src="vendor/bootstrap/js/popper.min.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+	<script src="vendor/select2/select2.min.js"></script>
 	<c:if test="${update}">
 		<script>
-	        $('#modalProduct').modal('show')
-	        </script>
+	        $('#modalProduct').modal('show');
+	    </script>
 	</c:if>
-	<script src="Product/js/product.js">
-        </script>
+	<script src="Product/js/product.js"></script>
 </body>
 </html>

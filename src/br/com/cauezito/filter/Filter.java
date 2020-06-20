@@ -36,17 +36,17 @@ public class Filter implements javax.servlet.Filter{
 			HttpServletRequest req = (HttpServletRequest) request;
 			HttpSession session = req.getSession();
 
-			if(session.getAttribute("user") != null 
+			/*if(session.getAttribute("user") != null 
 				|| req.getRequestURI().endsWith("login.jsp") 
-				|| req.getRequestURI().endsWith("Login")){
+				|| req.getRequestURI().endsWith("Login")){*/
 
 				chain.doFilter(request, response);
 				connection.commit();
-			} else {
+			/*} else {
 				RequestDispatcher dispatcher = request.getRequestDispatcher("/login.jsp");
 				dispatcher.forward(request, response);
 				return;
-			}
+			}*/
 			
 			
 		} catch (Exception e) {
