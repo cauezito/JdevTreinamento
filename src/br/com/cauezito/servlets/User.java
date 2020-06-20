@@ -1,8 +1,6 @@
 package br.com.cauezito.servlets;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -154,11 +152,8 @@ public class User extends HttpServlet {
 				Part partPhoto = request.getPart("photo");
 				if (partPhoto != null && partPhoto.getInputStream().available() > 0) {
 					PhotoBean photoBean = new PhotoBean();
-					/*String base64 = new Base64().encodeBase64String(
-						ConversionByType.streamToByte(partPhoto.getInputStream()));*/
-					
-					String base64 = new Base64().encodeBase64String(this.streamToByte(partPhoto.getInputStream()));
-				
+					String base64 = new Base64().encodeBase64String(
+						ConversionByType.streamToByte(partPhoto.getInputStream()));				
 					photoBean.setBase64(base64);
 					photoBean.setContentType(partPhoto.getContentType());
 					user.setPhoto(photoBean);		
@@ -199,23 +194,6 @@ public class User extends HttpServlet {
 		
 		rd.forward(request, response);	
 	}	
-	
-	private byte[] streamToByte(InputStream data) {
-		ByteArrayOutputStream stream = new ByteArrayOutputStream();
-		
-		try {
-			int reads = data.read();
-			reads = data.read();
-			while(reads != -1) {
-				stream.write(reads);
-				reads = data.read();
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		return stream.toByteArray();
-	}
 
 	private boolean checkAttribute(String attribute) {
 		return attribute == null || attribute.isEmpty();
