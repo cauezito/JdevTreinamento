@@ -34,9 +34,11 @@
 			<li class="nav-item"> 
 				<img alt="Voltar" src="vendor/img/back.png" class="nav-link" onclick="goBack();" title="voltar">
 			</li>
-			<li class="nav-item"><a class="nav-link" href="PublicPages/login.jsp"> <img
-					alt="sair" src="vendor/img/logout.png" title="sair">
-			</a></li>
+			<li class="nav-item">
+				<a class="nav-link" href="manageUser?action=logout"> 
+				<img alt="sair" src="vendor/img/logout.png" title="sair">
+				</a>
+			</li>
 			<li class="nav-item">
 				<form class="form-inline" method="POST" action="search">
 					<input class="form-control mr-sm-2" type="search"

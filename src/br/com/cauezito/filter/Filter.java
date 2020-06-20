@@ -32,7 +32,6 @@ public class Filter implements javax.servlet.Filter{
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
-		System.out.println("filtrou");
 		try {
 			HttpServletRequest req = (HttpServletRequest) request;
 			HttpSession session = req.getSession();
@@ -40,13 +39,10 @@ public class Filter implements javax.servlet.Filter{
 			if(session.getAttribute("user") != null 
 				|| req.getRequestURI().endsWith("login.jsp") 
 				|| req.getRequestURI().endsWith("Login")){
-				
-				System.out.println("Não barrou");
+
 				chain.doFilter(request, response);
 				connection.commit();
 			} else {
-				System.out.println(" barrou!: " + req.getRequestURL());
-				System.out.println("barrou URI!: " + req.getRequestURI());
 				RequestDispatcher dispatcher = request.getRequestDispatcher("/login.jsp");
 				dispatcher.forward(request, response);
 				return;

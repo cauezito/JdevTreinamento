@@ -13,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
@@ -55,6 +56,13 @@ public class User extends HttpServlet {
 		} else if(action.equals("listAll")) {
 			RequestDispatcher rd = request.getRequestDispatcher("/PrivatePages/users.jsp");
 			request.setAttribute("users", dao.findAll());
+			rd.forward(request, response);
+		} else if(action.equals("logout")) {
+			HttpServletRequest req = (HttpServletRequest) request;
+			HttpSession session = req.getSession();
+			session.invalidate();
+			request.setAttribute("msg", "Você saiu.");
+			RequestDispatcher rd= request.getRequestDispatcher("/login.jsp");
 			rd.forward(request, response);
 		}
 
