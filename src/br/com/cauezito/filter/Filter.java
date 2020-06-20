@@ -13,12 +13,13 @@ import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
-import br.com.cauezito.beans.UserBean;
 import br.com.cauezito.jdbc.SingleConnection;
 
-//Todas as urls serão interceptadas e passarão pelo filter.
-@WebFilter(urlPatterns = {"/PrivatePages/*"})
+//Todas as urls definidas serão interceptadas e passarão pelo filter.
+
+@WebFilter(urlPatterns = {"/PrivatePages/*"} , servletNames = {"servletProduct", "servletUser", 
+		"servletSearch", "servletExceptions"})
+
 public class Filter implements javax.servlet.Filter{
 
 	private static Connection connection = SingleConnection.getConnection();
@@ -31,19 +32,27 @@ public class Filter implements javax.servlet.Filter{
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
+		System.out.println("filtrou");
 		try {
 			HttpServletRequest req = (HttpServletRequest) request;
 			HttpSession session = req.getSession();
-			UserBean user = (UserBean) session.getAttribute("user");
+
+			if(session.getAttribute("user") != null 
+				|| req.getRequestURI().endsWith("login.jsp") 
+				|| req.getRequestURI().endsWith("Login")){
 				
-			if(user == null) {
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/PublicPages/login.jsp");
+				System.out.println("Não barrou");
+				chain.doFilter(request, response);
+				connection.commit();
+			} else {
+				System.out.println(" barrou!: " + req.getRequestURL());
+				System.out.println("barrou URI!: " + req.getRequestURI());
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/login.jsp");
 				dispatcher.forward(request, response);
 				return;
 			}
 			
-			chain.doFilter(request, response);
-			connection.commit();
+			
 		} catch (Exception e) {
 			try {
 				e.printStackTrace();

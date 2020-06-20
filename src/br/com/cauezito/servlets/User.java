@@ -24,7 +24,7 @@ import br.com.cauezito.beans.UserBean;
 import br.com.cauezito.dao.UserDao;
 import br.com.cauezito.util.ConversionByType;
 
-@WebServlet("/manageUser")
+@WebServlet(name ="servletUser" , urlPatterns = "/manageUser")
 @MultipartConfig
 public class User extends HttpServlet {
 	private static final long serialVersionUID = 1L;

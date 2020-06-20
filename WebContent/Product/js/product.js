@@ -11,3 +11,7 @@ function validateForm(){
 	 
 	 return isValid;
 }
+
+function goBack() {
+	window.history.back();
+}

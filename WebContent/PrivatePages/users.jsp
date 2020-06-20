@@ -31,10 +31,10 @@
 	<div class="container-fluid">
 		<ul class="nav"
 			style="padding-top: 10px; height: 70px; margin: 0;">
-			<li class="nav-item"><a class="nav-link" href="main.jsp"> <img
-					alt="Voltar" src="vendor/img/back.png" title="voltar">
-			</a></li>
-			<li class="nav-item"><a class="nav-link" href="login.jsp"> <img
+			<li class="nav-item"> 
+				<img alt="Voltar" src="vendor/img/back.png" class="nav-link" onclick="goBack();" title="voltar">
+			</li>
+			<li class="nav-item"><a class="nav-link" href="PublicPages/login.jsp"> <img
 					alt="sair" src="vendor/img/logout.png" title="sair">
 			</a></li>
 			<li class="nav-item">
@@ -333,7 +333,7 @@
 	<script src="vendor/select2/select2.min.js">
 		
 	</script>
-	<script src="User/js/user-script.js">
+	<script src="User/js/user.js">
         </script>
 	<!-- Main JS-->
 	<c:if test="${update}">
@@ -342,7 +342,6 @@
 	      
 	    </script>
 	</c:if>
-
 
 </body>
 </html>

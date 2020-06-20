@@ -35,7 +35,7 @@
 					</button>
 				</div>
 			</c:if>
-				<form class="login100-form validate-form flex-sb flex-w" action="../Login" method="post">
+				<form class="login100-form validate-form flex-sb flex-w" action="Login" method="post">
 					<span class="login100-form-title p-b-32">
 						Entrar no sistema
 					</span>

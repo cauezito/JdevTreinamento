@@ -1,4 +1,8 @@
- $(document).ready(function() {
+function goBack() {
+	window.history.back();
+}
+
+$(document).ready(function() {
 	var form = document.getElementById("formUser");
 	
 	 
@@ -60,4 +64,6 @@
 	$(function () {
 		$('[data-toggle="popover"]').popover()
 	});
+	
+
  });

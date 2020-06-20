@@ -9,4 +9,5 @@
   	<filter-name>Filter</filter-name>
   	<filter-class>br.com.cauezito.filter.Filter</filter-class>
   </filter>
+
 </web-app>

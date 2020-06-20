@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import br.com.cauezito.beans.ProductBean;
 import br.com.cauezito.dao.ProductDao;
 
-@WebServlet("/manageProduct")
+@WebServlet(name = "servletProduct" , urlPatterns = "/manageProduct")
 public class Product extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	ProductDao dao = new ProductDao();
@@ -113,7 +113,7 @@ public class Product extends HttpServlet {
 			request.setAttribute("msgValidation", msg);
 		}
 
-		RequestDispatcher rd = request.getRequestDispatcher("/products.jsp?action=listAll");
+		RequestDispatcher rd = request.getRequestDispatcher("/PrivatePages/products.jsp?action=listAll");
 		request.setAttribute("products", dao.findAll());
 		request.setAttribute("categories", dao.findAllCategories());
 		rd.forward(request, response);	

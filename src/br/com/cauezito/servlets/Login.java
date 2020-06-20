@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 import br.com.cauezito.beans.UserBean;
 import br.com.cauezito.dao.LoginDao;
 
-@WebServlet("/Login")
+@WebServlet(name = "servletLogin", urlPatterns = "/Login")
 public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private LoginDao loginDao = new LoginDao();
@@ -33,7 +33,7 @@ public class Login extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String login = request.getParameter("login");
 		String password = request.getParameter("password");
-		System.out.println(login);
+
 		UserBean user = loginDao.validateLogin(login, password);
 		
 		if(user != null) {
@@ -45,7 +45,7 @@ public class Login extends HttpServlet {
 			dispatcher.forward(request, response);
 
 		} else {
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/PublicPages/login.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/login.jsp");
 			request.setAttribute("msg", "Nome de usuário ou senha incorretos");
 			dispatcher.forward(request, response);
 		}		

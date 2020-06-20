@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import br.com.cauezito.dao.UserDao;
 
-@WebServlet("/search")
+@WebServlet(name = "servletSearch", urlPatterns = "/search")
 public class Search extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private UserDao dao = new UserDao();
